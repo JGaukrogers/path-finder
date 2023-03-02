@@ -1,5 +1,7 @@
 from xml.dom import minidom
 
+from src.way import Way
+
 
 class MapParser:
     def __init__(self, map_file_path):
@@ -15,4 +17,4 @@ class MapParser:
             for node in node_list:
                 node_value = node.attributes['ref'].value
                 if node_value in node_to_way_dict:
-                    node_to_way_dict[node_value].append(way)
+                    node_to_way_dict[node_value].append(Way(way))
