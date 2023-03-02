@@ -19,7 +19,7 @@ class MyTestCase(unittest.TestCase):
         graph = parser.parse_simplified_map_to_graph()
         dijkstra = DijkstraSPF(graph, TEST_INIT_POINT)
 
-        self.assertEqual(dijkstra.get_distance(TEST_END_POINT), 5)
+        self.assertEqual(5, dijkstra.get_distance(TEST_END_POINT))
 
     # TODO: find an example where the result is always the same
     # def test_get_right_path(self):
