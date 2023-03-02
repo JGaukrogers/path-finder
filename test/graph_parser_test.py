@@ -6,6 +6,7 @@ from src.graph_parser import GraphParser
 
 resources_dir = getcwd() + '/../resources'
 graph_file_path = resources_dir + '/ophois-graph.txt'
+map_file_path = resources_dir + '/my_town.osm'
 
 TEST_INIT_POINT = '6845757797'
 TEST_END_POINT = '1238436031'
@@ -15,7 +16,7 @@ TEST_PATH_POSSIBLE_RESULT_2 = ['6845757797', '6845757796', '10275176304', '10275
 
 class MyTestCase(unittest.TestCase):
     def test_shortest_distance_is_correct(self):
-        parser = GraphParser(graph_file_path)
+        parser = GraphParser(graph_file_path, map_file_path)
         graph = parser.parse_simplified_map_to_graph()
         dijkstra = DijkstraSPF(graph, TEST_INIT_POINT)
 
