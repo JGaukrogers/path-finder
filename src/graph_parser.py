@@ -36,12 +36,6 @@ class GraphParser:
         self.populate_node_to_way_dict()
         return graph
 
-    def get_list_of_ways(self, node_id: str):
-        return []
-
     def populate_node_to_way_dict(self):
-        # 1 - Read osm file
         map_parser = MapParser(self.map_file_path)
         map_parser.parse_dom(self.node_to_way_dict)
-        # 2 - For each node in self.node_to_way_dict[node_id], get all ways
-        pass
