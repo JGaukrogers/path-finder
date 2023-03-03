@@ -14,10 +14,18 @@ class GraphParser:
         self.edge_to_weight_dict = dict()
 
     def get_weight(self, node_id_0: str, node_id_1: str):
-        return 1
+        ways_n0 = set(self.node_to_way_dict[node_id_0])
+        ways_n1 = set(self.node_to_way_dict[node_id_1])
+        # len(common_ways) can be > 1 if two or more ways are parallel to each other between two nodes.
+        # For example, we have a road and a park way
+        common_ways = ways_n0 & ways_n1
+        weight = 0
+        for way in common_ways:
+            weight += way.get_quietness_value()
+        return weight
 
     def parse_simplified_map_to_graph(self):
-        graph = Graph()
+
 
         with open(self.graph_file_path, "r") as simplified_graph_file:
             for line in simplified_graph_file:
@@ -29,13 +37,19 @@ class GraphParser:
                 elif len(fields) == 2:
                     node_id_0, node_id_1 = fields
                     self.edge_to_weight_dict[(node_id_0, node_id_1)] = None
-                    weight = self.get_weight(node_id_0, node_id_1)
-                    graph.add_edge(node_id_0, node_id_1, weight)
-                    graph.add_edge(node_id_1, node_id_0, weight)
 
         self.populate_node_to_way_dict()
+        graph = self.calculate_weights()
         return graph
 
     def populate_node_to_way_dict(self):
         map_parser = MapParser(self.map_file_path)
         map_parser.parse_dom(self.node_to_way_dict)
+
+    def calculate_weights(self):
+        graph = Graph()
+        for node_id_0, node_id_1 in self.edge_to_weight_dict:
+            weight = self.get_weight(node_id_0, node_id_1)
+            graph.add_edge(node_id_0, node_id_1, weight)
+            graph.add_edge(node_id_1, node_id_0, weight)
+        return graph
