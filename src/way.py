@@ -1,24 +1,25 @@
 import xml.dom.minidom
 
-highway_types = {'motorway': 10,    #Autobahn. Should't prabably include it
-                 'primary': 9,
-                 'secondary': 8,
-                 'tertiary': 7,
+highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the noisiert highway type.
+                 'primary': 8,
+                 'secondary': 9,
+                 'tertiary': 6,
                  'unclassified': 1,
                  'residential': 3,
 
                  'living_street': 2,
                  'pedestrian': 3,
                  'track': 1,
-                 'road': 5,         # Unkown type of road
+                 'road': 5,  # Unkown type of road
 
                  'footway': 1,
                  'bridleway': 1,
-                 'steps': 3,        # Depends on where they are. Should maybe delete it
-                 'path': 2,         # Unspecifyed path
+                 'steps': 3,  # Depends on where they are. Should maybe delete it
+                 'path': 2,  # Unspecifyed path
                  'sidewalk': 3,
                  'crossing': 5,
                  }
+
 
 class Way:
     def __init__(self, xml_way: xml.dom.minidom.Element):
