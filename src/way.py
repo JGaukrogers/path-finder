@@ -39,8 +39,5 @@ class Way:
         return hash(self.id)
 
     def get_quietness_value(self):
-        quietness = 10
         highway_type = self.properties_dict['highway']
-        if highway_type in highway_types:
-            quietness = highway_types[highway_type]
-        return quietness
+        return highway_types.get(highway_type, 10)

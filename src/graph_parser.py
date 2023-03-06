@@ -19,13 +19,10 @@ class GraphParser:
         # len(common_ways) can be > 1 if two or more ways are parallel to each other between two nodes.
         # For example, we have a road and a park way
         common_ways = ways_n0 & ways_n1
-        weight = 0
-        for way in common_ways:
-            weight += way.get_quietness_value()
+        weight = sum(way.get_quietness_value() for way in common_ways)
         return weight
 
     def parse_simplified_map_to_graph(self):
-
 
         with open(self.graph_file_path, "r") as simplified_graph_file:
             for line in simplified_graph_file:
