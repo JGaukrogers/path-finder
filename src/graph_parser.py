@@ -3,6 +3,7 @@ from dijkstra import Graph
 from src.map_parser import MapParser
 
 SEPARATOR = '␟'
+NODE_SEPARATOR = '-'
 
 
 class GraphParser:
@@ -12,6 +13,7 @@ class GraphParser:
         self.map_file_path = map_file_path
         self.node_to_way_dict = dict()
         self.edge_to_weight_dict = dict()
+        self.nodeId_to_nodes_dict = dict()
 
     def get_weight(self, node_id_0: str, node_id_1: str):
         ways_n0 = set(self.node_to_way_dict[node_id_0])
@@ -29,9 +31,14 @@ class GraphParser:
                 line = line.strip()
                 fields = line.split(SEPARATOR)
                 if len(fields) == 3:
-                    node_id = fields[0]
-                    self.node_to_way_dict[node_id] = []
+                    node_ids = fields[0]
+                    self.node_to_way_dict[node_ids] = []
+                    self.nodeId_to_nodes_dict[node_ids] = node_ids.split(NODE_SEPARATOR)
+
                 elif len(fields) == 2:
+                    # node_id_list_0, node_id_list_1 = fields
+                    # node_id_0 = node_id_list_0.split(NODE_SEPARATOR)[0]
+                    # node_id_1 = node_id_list_1.split(NODE_SEPARATOR)[0]
                     node_id_0, node_id_1 = fields
                     self.edge_to_weight_dict[(node_id_0, node_id_1)] = None
 
@@ -41,7 +48,7 @@ class GraphParser:
 
     def populate_node_to_way_dict(self):
         map_parser = MapParser(self.map_file_path)
-        map_parser.parse_dom(self.node_to_way_dict)
+        map_parser.parse_dom(self.node_to_way_dict, self.nodeId_to_nodes_dict)
 
     def calculate_weights(self):
         graph = Graph()
