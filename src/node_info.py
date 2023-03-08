@@ -1,7 +1,7 @@
 from src.way import Way
 
 
-class Node:
+class NodeInfo:
     def __init__(self):
         self.ways = set()
         self.lat = None

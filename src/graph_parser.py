@@ -1,7 +1,7 @@
 from dijkstra import Graph
 
 from src.map_parser import MapParser
-from src.node import Node
+from src.node_info import NodeInfo
 
 SEPARATOR = '␟'
 NODE_SEPARATOR = '-'
@@ -25,7 +25,7 @@ class GraphParser:
                 if len(fields) == 3:
                     node_ids = fields[0]
                     for node_id in node_ids.split(NODE_SEPARATOR):
-                        self.node_to_way_dict[node_id] = Node()
+                        self.node_to_way_dict[node_id] = NodeInfo()
                         self.nodeId_to_nodes_dict[node_id] = node_ids
 
                 elif len(fields) == 2:
