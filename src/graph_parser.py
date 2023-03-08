@@ -1,6 +1,7 @@
 from dijkstra import Graph
 
 from src.map_parser import MapParser
+from src.node import Node
 
 SEPARATOR = '␟'
 NODE_SEPARATOR = '-'
@@ -24,7 +25,7 @@ class GraphParser:
                 if len(fields) == 3:
                     node_ids = fields[0]
                     for node_id in node_ids.split(NODE_SEPARATOR):
-                        self.node_to_way_dict[node_id] = []
+                        self.node_to_way_dict[node_id] = Node()
                         self.nodeId_to_nodes_dict[node_id] = node_ids
 
                 elif len(fields) == 2:
@@ -59,5 +60,5 @@ class GraphParser:
     def get_ways_for_nodes(self, node_ids: str):
         ways = set()
         for node_id in node_ids.split(NODE_SEPARATOR):
-            ways.update(self.node_to_way_dict[node_id])
+            ways.update(self.node_to_way_dict[node_id].get_connected_ways())
         return ways
