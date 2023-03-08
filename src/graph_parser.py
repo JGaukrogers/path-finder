@@ -12,7 +12,7 @@ class GraphParser:
     def __init__(self, graph_file_path: str, map_file_path: str):
         self.graph_file_path = graph_file_path
         self.map_file_path = map_file_path
-        self.node_to_way_dict = dict()
+        self.nodeId_to_nodeInfo_dict = dict()
         self.edge_to_weight_dict = dict()
         self.nodeId_to_nodes_dict = dict()
 
@@ -25,7 +25,7 @@ class GraphParser:
                 if len(fields) == 3:
                     node_ids = fields[0]
                     for node_id in node_ids.split(NODE_SEPARATOR):
-                        self.node_to_way_dict[node_id] = NodeInfo()
+                        self.nodeId_to_nodeInfo_dict[node_id] = NodeInfo()
                         self.nodeId_to_nodes_dict[node_id] = node_ids
 
                 elif len(fields) == 2:
@@ -38,7 +38,7 @@ class GraphParser:
 
     def populate_node_to_way_dict(self):
         map_parser = MapParser(self.map_file_path)
-        map_parser.parse_osm_map(self.node_to_way_dict)
+        map_parser.parse_osm_map(self.nodeId_to_nodeInfo_dict)
 
     def calculate_weights(self):
         graph = Graph()
@@ -60,5 +60,5 @@ class GraphParser:
     def get_ways_for_nodes(self, node_ids: str):
         ways = set()
         for node_id in node_ids.split(NODE_SEPARATOR):
-            ways.update(self.node_to_way_dict[node_id].get_connected_ways())
+            ways.update(self.nodeId_to_nodeInfo_dict[node_id].get_connected_ways())
         return ways

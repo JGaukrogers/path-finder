@@ -58,8 +58,8 @@ def test_get_right_weight(dijkstra_ways_init_simple_node):
 
 def test_composed_node_has_right_number_of_ways(simplified_graph):
     node0, node1 = COMPOSED_NODE.split(graph_parser.NODE_SEPARATOR)
-    assert len(simplified_graph.node_to_way_dict[node0].ways) == 2
-    assert len(simplified_graph.node_to_way_dict[node1].ways) == 2
+    assert len(simplified_graph.nodeId_to_nodeInfo_dict[node0].ways) == 2
+    assert len(simplified_graph.nodeId_to_nodeInfo_dict[node1].ways) == 2
 
 
 def test_composed_node_connects_one_street(dijkstra_ways_init_composed_node):

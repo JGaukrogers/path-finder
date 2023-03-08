@@ -19,6 +19,31 @@ def get_quietest_way(start_node_id: str, end_node_id: str):
     # Print list of nodes in "lightest" way
     print(dijkstra.get_path(end_node_id))
 
+    start_node_info = graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
+    lat = start_node_info.lat
+    lon = start_node_info.lon
+
+    start_node_coords = [float(lat), float(lon)]
+
+    map = folium.Map(location=start_node_coords, zoom_start=17)
+
+    start_node_info = graph_parser.nodeId_to_nodeInfo_dict[end_node_id]
+    lat = start_node_info.lat
+    lon = start_node_info.lon
+    end_node_coords = [lat, lon]
+
+    trail_coordinates = [
+        (start_node_coords[0], start_node_coords[1]),
+        (end_node_coords[0], end_node_coords[1]),
+    ]
+
+    folium.PolyLine(trail_coordinates, tooltip="Coast").add_to(map)
+
+    folium.Marker(start_node_coords, popup='Start').add_to(map)
+    folium.Marker(end_node_coords, popup='End').add_to(map)
+
+    map.save("index.html")
+
 
 '''
 lat="41.7889938"
