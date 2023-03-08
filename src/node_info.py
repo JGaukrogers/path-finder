@@ -12,3 +12,6 @@ class NodeInfo:
 
     def add_way(self, way: Way):
         self.ways.add(way)
+
+    def __repr__(self):
+        return f'lat: {self.lat} lon: {self.lon} ways: {self.ways}'
