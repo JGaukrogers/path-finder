@@ -17,32 +17,39 @@ def get_quietest_way(start_node_id: str, end_node_id: str):
     weighed_graph = graph_parser.parse_simplified_map_to_graph()
     dijkstra = DijkstraSPF(weighed_graph, start_node_id)
 
-    start_node_info = graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
-    lat = start_node_info.lat
-    lon = start_node_info.lon
-
-    start_node_coords = [lat, lon]
+    start_node_coords = get_node_coordinates(graph_parser, start_node_id)
+    end_node_coords = get_node_coordinates(graph_parser, end_node_id)
 
     map = folium.Map(location=start_node_coords, zoom_start=17)
-
-    start_node_info = graph_parser.nodeId_to_nodeInfo_dict[end_node_id]
-    lat = start_node_info.lat
-    lon = start_node_info.lon
-    end_node_coords = [lat, lon]
-
-    trail_coordinates = [
-        (start_node_coords[0], start_node_coords[1]),
-        (end_node_coords[0], end_node_coords[1]),
-    ]
-
-    folium.PolyLine(trail_coordinates, tooltip="Coast").add_to(map)
 
     folium.Marker(start_node_coords, popup='Start').add_to(map)
     folium.Marker(end_node_coords, popup='End').add_to(map)
 
+    trail_coordinates = get_trail_coordinates(dijkstra.get_path(end_node_id), graph_parser)
+
+    folium.PolyLine(trail_coordinates, tooltip="Coast").add_to(map)
+
     map.save("index.html")
+
+
+def get_node_coordinates(graph_parser, start_node_id):
+    start_node_info = graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
+    lat = start_node_info.lat
+    lon = start_node_info.lon
+    start_node_coords = [lat, lon]
+    return start_node_coords
+
+
+def get_trail_coordinates(node_list, graph_parser):
+    trail_coordinates = []
+    for path_points in node_list:
+        lat = graph_parser.nodeId_to_nodeInfo_dict[path_points].lat
+        lon = graph_parser.nodeId_to_nodeInfo_dict[path_points].lon
+        trail_coordinates.append((lat, lon))
+    return trail_coordinates
 
 
 TEST_INIT_POINT = '6845757797'
 TEST_END_POINT_SHORT = '6845757796'
-get_quietest_way(TEST_INIT_POINT, TEST_END_POINT_SHORT)
+TEST_END_POINT_LONG = '1238435933'
+get_quietest_way(TEST_INIT_POINT, TEST_END_POINT_LONG)
