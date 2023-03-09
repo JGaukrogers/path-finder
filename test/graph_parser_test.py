@@ -4,7 +4,7 @@ from dijkstra import DijkstraSPF
 
 from src import graph_parser
 from src.graph_parser import GraphParser
-from src.way import highway_types
+from src.graph_elements import highway_types
 
 resources_dir = getcwd() + '/../resources'
 graph_file_path = resources_dir + '/ophois-graph.txt'

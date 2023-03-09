@@ -21,7 +21,7 @@ def get_quietest_way(start_node_id: str, end_node_id: str):
     lat = start_node_info.lat
     lon = start_node_info.lon
 
-    start_node_coords = [float(lat), float(lon)]
+    start_node_coords = [lat, lon]
 
     map = folium.Map(location=start_node_coords, zoom_start=17)
 

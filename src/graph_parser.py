@@ -1,7 +1,7 @@
 from dijkstra import Graph
 
 from src.map_parser import MapParser
-from src.node_info import NodeInfo
+from src.graph_elements import NodeInfo
 
 SEPARATOR = '␟'
 NODE_SEPARATOR = '-'
@@ -60,5 +60,5 @@ class GraphParser:
     def get_ways_for_nodes(self, node_ids: str):
         ways = set()
         for node_id in node_ids.split(NODE_SEPARATOR):
-            ways.update(self.nodeId_to_nodeInfo_dict[node_id].get_connected_ways())
+            ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
         return ways

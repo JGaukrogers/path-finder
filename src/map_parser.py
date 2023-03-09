@@ -1,7 +1,7 @@
 from xml.dom import minidom
 
-from src.node_info import NodeInfo
-from src.way import Way
+from src.graph_elements import NodeInfo
+from src.graph_elements import Way
 
 
 class MapParser:
@@ -21,14 +21,14 @@ class MapParser:
             for node in node_list:
                 node_value = node.attributes['ref'].value
                 if node_value in node_to_way_dict:
-                    node_to_way_dict[node_value].add_way(Way(way))
+                    node_to_way_dict[node_value].ways.add(Way(way))
 
     def parse_node_coordinates(self, dom_parser, node_to_way_dict):
         xml_nodes = dom_parser.getElementsByTagName('node')
         for xml_node in xml_nodes:
             node_id = xml_node.attributes['id'].value
             if node_id in node_to_way_dict:
-                lat = xml_node.attributes['lat'].value
-                lon = xml_node.attributes['lon'].value
+                lat = float(xml_node.attributes['lat'].value)
+                lon = float(xml_node.attributes['lon'].value)
                 node_to_way_dict[node_id].lat = lat
                 node_to_way_dict[node_id].lon = lon

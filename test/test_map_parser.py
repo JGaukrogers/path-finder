@@ -1,8 +1,8 @@
 from os import getcwd
 import pytest
 
+from src.graph_elements import NodeInfo
 from src.map_parser import MapParser
-from src.node_info import NodeInfo
 
 NODE_2 = '6845757796'
 
@@ -22,5 +22,5 @@ def parser():
 
 def test_parse_dom(parser):
     parser.parse_osm_map(TEST_DICT)
-    assert len(TEST_DICT[NODE_1].get_connected_ways()) == 1
-    assert len(TEST_DICT[NODE_2].get_connected_ways()) == 2
+    assert len(TEST_DICT[NODE_1].ways) == 1
+    assert len(TEST_DICT[NODE_2].ways) == 2
