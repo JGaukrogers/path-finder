@@ -27,12 +27,14 @@ def dijkstra_ways_init_simple_node():
     dijkstra = DijkstraSPF(graph, TEST_INIT_POINT)
     return dijkstra
 
+
 @pytest.fixture()
 def dijkstra_ways_init_composed_node():
     parser = GraphParser(graph_file_path, map_file_path)
     graph = parser.parse_simplified_map_to_graph()
-    dijkstra = DijkstraSPF(graph, TEST_INIT_POINT)
+    dijkstra = DijkstraSPF(graph, COMPOSED_NODE)
     return dijkstra
+
 
 @pytest.fixture()
 def simplified_graph():
@@ -63,4 +65,5 @@ def test_composed_node_has_right_number_of_ways(simplified_graph):
 
 
 def test_composed_node_connects_one_street(dijkstra_ways_init_composed_node):
-    assert dijkstra_ways_init_composed_node.get_distance(TEST_END_POINT_SHORT) == highway_types['track']
+    print(dijkstra_ways_init_composed_node.get_path(NODE_TO_COMPOSED_NODE))
+    assert dijkstra_ways_init_composed_node.get_distance(NODE_TO_COMPOSED_NODE) == highway_types['track']
