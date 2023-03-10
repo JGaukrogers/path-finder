@@ -25,10 +25,6 @@ class MapDisplayer:
 
         map.save("index.html")
 
-        print(map.to_dict())
-        for elem in map.to_dict():
-            print(elem)
-
     def get_node_coordinates(self, start_node_id):
         start_node_info = self.graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
         lat = start_node_info.lat
