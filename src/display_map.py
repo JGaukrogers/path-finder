@@ -3,6 +3,8 @@ from dijkstra import DijkstraSPF
 
 from src.graph_parser import GraphParser
 
+ZOOM_START = 17
+
 
 class MapDisplayer:
 
@@ -14,7 +16,7 @@ class MapDisplayer:
         start_node_coords = self.get_node_coordinates(start_node_id)
         end_node_coords = self.get_node_coordinates(end_node_id)
 
-        map = folium.Map(location=start_node_coords, zoom_start=17)
+        map = folium.Map(location=start_node_coords, zoom_start=ZOOM_START)
 
         folium.Marker(start_node_coords, popup='Start').add_to(map)
         folium.Marker(end_node_coords, popup='End').add_to(map)
