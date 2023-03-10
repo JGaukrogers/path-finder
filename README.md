@@ -18,3 +18,14 @@
 - We can mock downloading the osm data at firs by using an already downloaded file
 - The user has to be able to choose which criteria is important, but we can mock this at first
   - We can just pretend the user wants to get the quietest way
+
+## Ophois usage example
+Execute following commands in the command shell:
+
+> CITY=Taurinya
+> 
+> ophois download --city $CITY
+> 
+> cat $CITY.osm | ophois format | ophois extract > $CITY-extracted.graph
+> 
+> cat $CITY-extracted.graph | ophois simplify --delta 10.0 > $CITY-simplified.graph
