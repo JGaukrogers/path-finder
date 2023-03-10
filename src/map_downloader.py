@@ -2,6 +2,7 @@ import subprocess
 
 DEFAULT_OPHOIS = './../bin/ophois'
 
+
 class DataDownloader:
 
     def __init__(self, city, ophois=DEFAULT_OPHOIS):
@@ -30,7 +31,6 @@ class DataDownloader:
         else:
             return False
         return True
-
 
     def is_ophois_available(self):
         try:
