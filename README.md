@@ -22,10 +22,12 @@
 ## Ophois usage example
 Execute following commands in the command shell:
 
-> CITY=Taurinya
-> 
-> ophois download --city $CITY
-> 
-> cat $CITY.osm | ophois format | ophois extract > $CITY-extracted.graph
-> 
-> cat $CITY-extracted.graph | ophois simplify --delta 10.0 > $CITY-simplified.graph
+```shell
+CITY=Taurinya
+
+ophois download --city $CITY
+
+cat $CITY.osm | ophois format | ophois extract > $CITY-extracted.graph
+
+cat $CITY-extracted.graph | ophois simplify --delta 10.0 > $CITY-simplified.graph
+```
