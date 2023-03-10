@@ -1,55 +1,26 @@
 import subprocess
 
-COMMAND_DOWNLOAD_CITY = './../bin/ophois-3.0-x86_64-linux-musl --help'
+city = 'Taurinya'
+OPHOIS = './../bin/ophois'
 
-res = subprocess.check_output(COMMAND_DOWNLOAD_CITY, shell=True)
+osm_file = f'{city}.osm'
+extracted_graph = f'{city}-extracted.graph'
 
-print('Return type: ', type(res))
+COMMAND_DOWNLOAD_CITY = f'{OPHOIS} download --city {city}'
+COMMAND_EXTRACT_GRAPH = f'cat {osm_file} | {OPHOIS} format | {OPHOIS} extract > {extracted_graph}'
+COMMAND_SIMPLIFY_GRAPH = f'cat extracted_graph | {OPHOIS} simplify --delta 10.0 > {city}-simplified.graph'
 
-print('Decoded string: ', res.decode('utf-8'))
+COMMAND_REMOVE_FILES = f'rm {osm_file} {extracted_graph}'
 
+res0 = subprocess.check_output(COMMAND_DOWNLOAD_CITY, shell=True)
+res1 = subprocess.check_output(COMMAND_EXTRACT_GRAPH, shell=True)
+res2 = subprocess.check_output(COMMAND_SIMPLIFY_GRAPH, shell=True)
 
-from flask import Flask
+res3 = subprocess.check_output(COMMAND_REMOVE_FILES, shell=True)
 
-app = Flask(__name__)
+print('Decoded string: ', res0.decode('utf-8'))
+print('Decoded string: ', res1.decode('utf-8'))
+print('Decoded string: ', res2.decode('utf-8'))
 
+print('Decoded string: ', res3.decode('utf-8'))
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
-
-'''
-BS
-52.27892
-
-10.52013 10.53462
-
-52.27495
-
-
-<osm-script>
-  <bbox-query e="7.157" n="50.748" s="50.746" w="7.154"/>
-  <print/>
-</osm-script>
-
-
-way(10.53462, 52.27892, 52.27495, 10.52013);
-out body;
-
-
-
-node
-  [amenity=drinking_water]
-  ({{bbox}});
-out;
-
-'''
-'''
-Ophois usage example:
-=====================
-$ CITY=Balaguer
-$ ./ophois-3.0-x86_64-linux-musl download --city $CITY
-$ cat $CITY.osm | ./ophois-3.0-x86_64-linux-musl format | ./ophois-3.0-x86_64-linux-musl extract > $CITY-extracted.graph
-$ cat $CITY-extracted.graph | ./ophois-3.0-x86_64-linux-musl simplify --delta 10.0 > $CITY-simplified.graph
-'''
