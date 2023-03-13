@@ -1,13 +1,14 @@
 from os import getcwd
 import pytest
 
+from src.graph_elements import NodeInfo
 from src.map_parser import MapParser
 
 NODE_2 = '6845757796'
 
 NODE_1 = '6845757797'
 
-TEST_DICT = {NODE_1: [], NODE_2: []}
+TEST_DICT = {NODE_1: NodeInfo(), NODE_2: NodeInfo()}
 
 resources_dir = getcwd() + '/../resources'
 map_file_path = resources_dir + '/my_town.osm'
@@ -20,6 +21,6 @@ def parser():
 
 
 def test_parse_dom(parser):
-    parser.parse_dom(TEST_DICT)
-    assert len(TEST_DICT[NODE_1]) == 1
-    assert len(TEST_DICT[NODE_2]) == 2
+    parser.parse_osm_map(TEST_DICT)
+    assert len(TEST_DICT[NODE_1].ways) == 1
+    assert len(TEST_DICT[NODE_2].ways) == 2

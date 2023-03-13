@@ -1,6 +1,7 @@
 import xml.dom.minidom
+from dataclasses import dataclass, field
 
-highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the noisiert highway type.
+highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the noisiest highway type.
                  'primary': 8,
                  'secondary': 9,
                  'tertiary': 6,
@@ -41,3 +42,10 @@ class Way:
     def get_quietness_value(self):
         highway_type = self.properties_dict['highway']
         return highway_types.get(highway_type, 10)
+
+
+@dataclass
+class NodeInfo:
+    ways: set[Way] = field(default_factory=set)
+    lat: float = 0
+    lon: float = 0
