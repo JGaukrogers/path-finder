@@ -3,6 +3,10 @@ from dijkstra import DijkstraSPF
 
 from src.graph_parser import GraphParser
 
+HTML_OUTFILE = 'index.html'
+
+ZOOM_START = 17
+
 
 class MapDisplayer:
 
@@ -14,16 +18,16 @@ class MapDisplayer:
         start_node_coords = self.get_node_coordinates(start_node_id)
         end_node_coords = self.get_node_coordinates(end_node_id)
 
-        map = folium.Map(location=start_node_coords, zoom_start=17)
+        map = folium.Map(location=start_node_coords, zoom_start=ZOOM_START)
 
         folium.Marker(start_node_coords, popup='Start').add_to(map)
         folium.Marker(end_node_coords, popup='End').add_to(map)
 
         trail_coordinates = self.get_trail_coordinates(self.dijkstra.get_path(end_node_id))
 
-        folium.PolyLine(trail_coordinates, tooltip="Coast").add_to(map)
+        folium.PolyLine(trail_coordinates, tooltip='Coast').add_to(map)
 
-        map.save("index.html")
+        map.save(HTML_OUTFILE)
 
     def get_node_coordinates(self, start_node_id):
         start_node_info = self.graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
@@ -37,5 +41,6 @@ class MapDisplayer:
         for path_points in node_list:
             lat = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lat
             lon = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lon
+            # TODO: make namedtuple
             trail_coordinates.append((lat, lon))
         return trail_coordinates

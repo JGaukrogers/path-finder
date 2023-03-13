@@ -12,9 +12,9 @@ class GraphParser:
     def __init__(self, graph_file_path: str, map_file_path: str):
         self.graph_file_path = graph_file_path
         self.map_file_path = map_file_path
-        self.nodeId_to_nodeInfo_dict = dict()
-        self.edge_to_weight_dict = dict()
-        self.nodeId_to_nodes_dict = dict()
+        self.nodeId_to_nodeInfo_dict = {}
+        self.edge_to_weight_dict = {}
+        self.nodeId_to_nodes_dict = {}
 
     def parse_simplified_map_to_graph(self):
 
