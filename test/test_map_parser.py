@@ -1,4 +1,4 @@
-from os import getcwd
+from pathlib import Path
 import pytest
 
 from src.graph_elements import NodeInfo
@@ -10,8 +10,8 @@ NODE_1 = '6845757797'
 
 TEST_DICT = {NODE_1: NodeInfo(), NODE_2: NodeInfo()}
 
-resources_dir = getcwd() + '/../resources'
-map_file_path = resources_dir + '/my_town.osm'
+resources_dir = Path(".") / 'resources'
+map_file_path = str(resources_dir / 'my_town.osm')
 
 
 @pytest.fixture()

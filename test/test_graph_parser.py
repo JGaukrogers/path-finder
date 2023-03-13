@@ -1,14 +1,14 @@
 import pytest
-from os import getcwd
+from pathlib import Path
 from dijkstra import DijkstraSPF
 
 from src import graph_parser
 from src.graph_parser import GraphParser
 from src.graph_elements import highway_types
 
-resources_dir = getcwd() + '/../resources'
-graph_file_path = resources_dir + '/ophois-graph.txt'
-map_file_path = resources_dir + '/my_town.osm'
+resources_dir = Path(".") / 'resources'
+graph_file_path = str(resources_dir / 'ophois-graph.txt')
+map_file_path = str(resources_dir / 'my_town.osm')
 
 TEST_INIT_POINT = '6845757797'
 TEST_END_POINT_SHORT = '6845757796'

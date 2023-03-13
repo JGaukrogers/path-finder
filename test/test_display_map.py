@@ -1,13 +1,13 @@
-from os import getcwd
+from pathlib import Path
 
 from dijkstra import DijkstraSPF
 
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 
-resources_dir = getcwd() + '/../resources'
-MOCK_GRAPH_FILE = resources_dir + '/ophois-graph.txt'
-MOCK_MAP_FILE = resources_dir + '/my_town.osm'
+resources_dir = Path(".") / 'resources'
+MOCK_GRAPH_FILE = str(resources_dir / 'ophois-graph.txt')
+MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
 
 
 TEST_INIT_POINT = '6845757797'
