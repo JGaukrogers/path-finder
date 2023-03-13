@@ -20,7 +20,7 @@ def parser():
     return parser
 
 
-def test_parse_dom(parser):
+def test_parse_osm_map(parser):
     parser.parse_osm_map(TEST_DICT)
     assert len(TEST_DICT[NODE_1].ways) == 1
     assert len(TEST_DICT[NODE_2].ways) == 2
