@@ -19,15 +19,11 @@ class DataDownloader:
 
     def get_simplified_graph(self):
         if self.is_ophois_available():
-            res0 = subprocess.check_output(self.COMMAND_DOWNLOAD_CITY, shell=True)
-            res1 = subprocess.check_output(self.COMMAND_EXTRACT_GRAPH, shell=True)
-            res2 = subprocess.check_output(self.COMMAND_SIMPLIFY_GRAPH, shell=True)
-            res3 = subprocess.check_output(self.COMMAND_REMOVE_FILES, shell=True)
+            subprocess.check_output(self.COMMAND_DOWNLOAD_CITY, shell=True)
+            subprocess.check_output(self.COMMAND_EXTRACT_GRAPH, shell=True)
+            subprocess.check_output(self.COMMAND_SIMPLIFY_GRAPH, shell=True)
+            subprocess.check_output(self.COMMAND_REMOVE_FILES, shell=True)
 
-            # print('Decoded string: ', res0.decode('utf-8'))
-            # print('Decoded string: ', res1.decode('utf-8'))
-            # print('Decoded string: ', res2.decode('utf-8'))
-            # print('Decoded string: ', res3.decode('utf-8'))
         else:
             return False
         return True
