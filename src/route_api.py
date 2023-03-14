@@ -21,7 +21,6 @@ app = Flask(__name__)
 def get_route(area_name, init_point, end_point):
     data_downloader = DataDownloader(area_name, ophois=OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
-    graph_downloaded = True
     if graph_downloaded:
         parser = GraphParser(graph_file_path=GRAPH_FILENAME_TEMPLATE.format(area_name),
                              map_file_path=OSM_FILENAME_TEMPLATE.format(area_name))
