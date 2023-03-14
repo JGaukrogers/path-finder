@@ -2,25 +2,40 @@ from flask import Flask
 from flask import escape
 from flask import render_template
 
+from src.display_map import MapDisplayer
+from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
+from dijkstra import DijkstraSPF
 
 OPHOIS = './bin/ophois'
+HTML_OUTFILE = '{}.html'
+HTML_OUTPATH = 'src/templates/{}.html'
+
+GRAPH_FILENAME_TEMPLATE = '{}-simplified.graph'
+OSM_FILENAME_TEMPLATE = '{}.osm'
 
 app = Flask(__name__)
 
 
-@app.route('/get_route/<area_name>')
-def get_route(area_name):
+@app.route('/get_route/<area_name>/<init_point>/<end_point>')
+def get_route(area_name, init_point, end_point):
     data_downloader = DataDownloader(area_name, ophois=OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
+    graph_downloaded = True
     if graph_downloaded:
-        pass
+        parser = GraphParser(graph_file_path=GRAPH_FILENAME_TEMPLATE.format(area_name),
+                             map_file_path=OSM_FILENAME_TEMPLATE.format(area_name))
+        graph = parser.parse_simplified_map_to_graph()
+        dijkstra = DijkstraSPF(graph, init_point)
+        displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
+        displayer.get_quietest_way(init_point, end_point, outfile_path=HTML_OUTPATH.format(area_name))
+        return render_template(HTML_OUTFILE.format(area_name))
+
     else:
         # Give error
-        pass
-    return f'<h1>Route {escape(area_name)}</h1><p>Map downloaded: {graph_downloaded}</p>'
+        return '<p>An error occurred</p>'
 
 
 @app.route('/')
-def index(area_name):
-    return render_template('index.html')
+def index():
+    return f'<h1>Index site</h1>'
