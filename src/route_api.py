@@ -2,28 +2,25 @@ from flask import Flask
 from flask import escape
 from flask import render_template
 
+import src.constants as contants
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
 from dijkstra import DijkstraSPF
 
-OPHOIS = './bin/ophois'
 HTML_OUTFILE = '{}.html'
 HTML_OUTPATH = 'src/templates/{}.html'
-
-GRAPH_FILENAME_TEMPLATE = '{}-simplified.graph'
-OSM_FILENAME_TEMPLATE = '{}.osm'
 
 app = Flask(__name__)
 
 
 @app.route('/get_route/<area_name>/<init_point>/<end_point>')
 def get_route(area_name, init_point, end_point):
-    data_downloader = DataDownloader(area_name, ophois=OPHOIS)
+    data_downloader = DataDownloader(area_name, ophois=contants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
-        parser = GraphParser(graph_file_path=GRAPH_FILENAME_TEMPLATE.format(area_name),
-                             map_file_path=OSM_FILENAME_TEMPLATE.format(area_name))
+        parser = GraphParser(graph_file_path=contants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name),
+                             map_file_path=contants.OSM_FILENAME_TEMPLATE.format(area_name))
         graph = parser.parse_simplified_map_to_graph()
         dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
