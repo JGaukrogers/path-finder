@@ -1,6 +1,5 @@
 import subprocess
 import src.constants as constants
-# DEFAULT_OPHOIS = './../bin/ophois'
 
 COMMAND_DOWNLOAD_CITY = '{} download --city {}'
 COMMAND_EXTRACT_GRAPH = 'cat {} | {} format | {} extract > {}'
