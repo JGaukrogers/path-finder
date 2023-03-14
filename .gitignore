@@ -130,8 +130,8 @@ dmypy.json
 
 /.idea
 
-index.html
-/src/templates/*.html
+#index.html
+#/src/templates/*.html
 *.osm
 *.graph
 

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import escape
-from flask import render_template
+from flask import render_template, request, url_for, flash, redirect
 
 import src.constants as contants
 from src.display_map import MapDisplayer
@@ -12,6 +12,8 @@ HTML_OUTFILE = '{}.html'
 HTML_OUTPATH = 'src/templates/{}.html'
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'askjnvnswldkcmclmv'
+messages = []
 
 
 @app.route('/get_route/<area_name>/<init_point>/<end_point>')
@@ -32,6 +34,20 @@ def get_route(area_name, init_point, end_point):
         return '<p>An error occurred</p>'
 
 
-@app.route('/')
+@app.route('/', methods=('GET', 'POST'))
 def index():
-    return f'<h1>Index site</h1>'
+    if request.method == 'POST':
+        place_name = request.form['place_name'].strip()
+        start_node = request.form['start_node'].strip()
+        end_node = request.form['end_node'].strip()
+
+        if not place_name:
+            flash('Place name is required!')
+        elif not start_node:
+            flash('Start node is required!')
+        elif not end_node:
+            flash('End node is required!')
+        else:
+            return redirect(url_for('get_route', area_name=place_name, init_point=start_node, end_point=end_node))
+
+    return render_template('index.html')
