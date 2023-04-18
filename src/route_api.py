@@ -1,18 +1,16 @@
-from flask import Flask
-from flask import escape
-from flask import render_template, request, url_for, flash, redirect
+import os
+
+from dijkstra import DijkstraSPF
+from flask import Flask, render_template, request, url_for, flash, redirect
+# from decouple import config
 
 import src.constants as contants
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
-from dijkstra import DijkstraSPF
-
-HTML_OUTFILE = '{}.html'
-HTML_OUTPATH = 'src/templates/{}.html'
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'askjnvnswldkcmclmv'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
 
 
@@ -26,8 +24,8 @@ def get_route(area_name, init_point, end_point):
         graph = parser.parse_simplified_map_to_graph()
         dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
-        displayer.get_quietest_way(init_point, end_point, outfile_path=HTML_OUTPATH.format(area_name))
-        return render_template(HTML_OUTFILE.format(area_name))
+        displayer.get_quietest_way(init_point, end_point, outfile_path=contants.HTML_OUTPATH.format(area_name=area_name))
+        return render_template(contants.HTML_OUTFILE.format(area_name=area_name))
 
     else:
         # Give error
