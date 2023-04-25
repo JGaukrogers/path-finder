@@ -3,35 +3,49 @@
 {% block content %}
 <h1 xmlns="http://www.w3.org/1999/html">{% block title %} Add a New Message {% endblock %}</h1>
 <form method="post">
-    <label for="title">Place Name</label>
-    <br>
-    <input type="text" name="place_name"
-           placeholder="Place Name"
-           value="{{ request.form['place_name'] }}"></input>
-    <br>
+    <table>
+        <tr>
+            <td>
+                <label for="title">Place Name</label>
+                <br>
+                <input type="text" name="place_name"
+                       placeholder="Place Name"
+                       value="{{ request.form['place_name'] }}"/>
+                <br>
+                <label for="content">Start Node</label>
+                <br>
+                <input type="number" name="start_node" min="1"
+                       placeholder="Start Node"
+                       value="{{ request.form['start_node'] }}"/>
+                <br>
+                <label for="content">End Node</label>
+                <br>
+                <input type="number" name="end_node" min="1"
+                       placeholder="End Node"
+                       value="{{ request.form['end_node'] }}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Path Priority</label>
+                <br>
+                <input type="radio" id="quietness" name="path_way_priority" value="quietness">
+                <label for="quietness">quietness</label><br>
+                <input type="radio" id="distance" name="path_way_priority" value="distance">
+                <label for="distance">distance</label><br>
+            </td>
+        </tr>
 
-    <label for="content">Start Node</label>
-    <br>
-    <input type="number" name="start_node" min="1"
-           placeholder="Start Node"
-           value="{{ request.form['start_node'] }}"></input>
-    <br>
-
-    <label for="content">End Node</label>
-    <br>
-    <input type="number" name="end_node" min="1"
-           placeholder="End Node"
-           value="{{ request.form['end_node'] }}"></input>
-    <br>
+    </table>
     <button type="submit">Submit</button>
 </form>
 
 <p>
     Example values:
-    </br>
+    <br>
     Place: Balaguer
-    </br>
+    <br>
     Node Ids: 6845757797 2215019286 2215019208
-    </br>
+    <br>
 </p>
 {% endblock %}
