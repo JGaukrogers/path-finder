@@ -31,7 +31,9 @@ class MapDisplayer:
 
     def get_node_coordinates(self, start_node_id):
         start_node_info = self.graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
-        start_node_coords = [start_node_info.lat, start_node_info.lon]
+        lat = start_node_info.lat
+        lon = start_node_info.lon
+        start_node_coords = [lat, lon]
         return start_node_coords
 
     def get_trail_coordinates(self, node_list):
