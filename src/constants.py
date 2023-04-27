@@ -12,3 +12,6 @@ COMMAND_OPHOIS_AVAILABLE = '{ophois_path} --help'
 
 HTML_OUTFILE = '{area_name}.html'
 HTML_OUTPATH = 'src/templates/{area_name}.html'
+
+PRIORITY_QUIETNESS = 'quietness'
+PRIORITY_SHORT_DISTANCE = 'distance'

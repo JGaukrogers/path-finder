@@ -2,6 +2,7 @@ from pathlib import Path
 
 from dijkstra import DijkstraSPF
 
+from src.constants import PRIORITY_QUIETNESS
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 
@@ -16,7 +17,7 @@ TEST_END_POINT_LONG = '1238435933'
 
 
 def test_create_graph_one_edge():
-    test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE)
+    test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
     test_weighed_graph = test_graph_parser.parse_simplified_map_to_graph()
     test_dijkstra = DijkstraSPF(test_weighed_graph, TEST_INIT_POINT)
 
@@ -25,7 +26,7 @@ def test_create_graph_one_edge():
 
 
 def test_create_graph_four_edges():
-    test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE)
+    test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
     test_weighed_graph = test_graph_parser.parse_simplified_map_to_graph()
     test_dijkstra = DijkstraSPF(test_weighed_graph, TEST_INIT_POINT)
 
