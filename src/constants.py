@@ -1,8 +1,8 @@
 DEFAULT_OPHOIS = './bin/ophois'
 
-SIMPLE_GRAPH_FILENAME_TEMPLATE = '{}-simplified.graph'
-EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{}-extracted.graph'
-OSM_FILENAME_TEMPLATE = '{}.osm'
+SIMPLE_GRAPH_FILENAME_TEMPLATE = '{area_name}-simplified.graph'
+EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{area_name}-extracted.graph'
+OSM_FILENAME_TEMPLATE = '{area_name}.osm'
 
 COMMAND_DOWNLOAD_CITY = '{ophois_path} download --city {area_name}'
 COMMAND_EXTRACT_GRAPH = 'cat {osm_file} | {ophois_path} format | {ophois_path} extract > {extracted_graph}'

@@ -57,9 +57,9 @@ class GraphParser:
         # len(common_ways) can be > 1 if two or more ways are parallel to each other between two nodes.
         # For example, we have a road and a park way
         common_ways = ways_n0 & ways_n1
-        # Is sum a good idea? Better min?
         weight = 1
         if self.path_way_priority == PRIORITY_QUIETNESS:
+            # Is sum a good idea? Better min?
             weight = sum(way.get_quietness_value() for way in common_ways)
         elif self.path_way_priority == PRIORITY_SHORT_DISTANCE:
             weight = self.get_distance_for_nodes(self.get_first_node(node_ids_0),

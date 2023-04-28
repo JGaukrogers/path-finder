@@ -19,8 +19,8 @@ def get_route(area_name, init_point, end_point, path_way_priority):
     data_downloader = DataDownloader(area_name, ophois=contants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
-        parser = GraphParser(graph_file_path=contants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name),
-                             map_file_path=contants.OSM_FILENAME_TEMPLATE.format(area_name),
+        parser = GraphParser(graph_file_path=contants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name=area_name),
+                             map_file_path=contants.OSM_FILENAME_TEMPLATE.format(area_name=area_name),
                              path_way_priority = path_way_priority)
         graph = parser.parse_simplified_map_to_graph()
         dijkstra = DijkstraSPF(graph, init_point)
