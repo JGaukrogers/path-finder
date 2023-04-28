@@ -3,7 +3,7 @@ from dijkstra import DijkstraSPF
 
 from src.graph_parser import GraphParser
 
-HTML_OUTFILE = 'index.html'
+DEFAULT_HTML_OUTFILE = 'index.html'
 
 ZOOM_START = 17
 
@@ -14,7 +14,7 @@ class MapDisplayer:
         self.graph_parser = graph_parser
         self.dijkstra = dijkstra
 
-    def get_quietest_way(self, start_node_id: str, end_node_id: str):
+    def get_quietest_way(self, start_node_id: str, end_node_id: str, outfile_path = DEFAULT_HTML_OUTFILE):
         start_node_coords = self.get_node_coordinates(start_node_id)
         end_node_coords = self.get_node_coordinates(end_node_id)
 
@@ -27,7 +27,7 @@ class MapDisplayer:
 
         folium.PolyLine(trail_coordinates, tooltip='Coast').add_to(map)
 
-        map.save(HTML_OUTFILE)
+        map.save(outfile_path)
 
     def get_node_coordinates(self, start_node_id):
         start_node_info = self.graph_parser.nodeId_to_nodeInfo_dict[start_node_id]

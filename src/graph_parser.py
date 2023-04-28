@@ -1,7 +1,9 @@
 from dijkstra import Graph
 
+from src.constants import PRIORITY_QUIETNESS, PRIORITY_SHORT_DISTANCE
 from src.map_parser import MapParser
 from src.graph_elements import NodeInfo
+from haversine import haversine, Unit
 
 SEPARATOR = '␟'
 NODE_SEPARATOR = '-'
@@ -9,9 +11,10 @@ NODE_SEPARATOR = '-'
 
 class GraphParser:
 
-    def __init__(self, graph_file_path: str, map_file_path: str):
+    def __init__(self, graph_file_path: str, map_file_path: str, path_way_priority: str):
         self.graph_file_path = graph_file_path
         self.map_file_path = map_file_path
+        self.path_way_priority = path_way_priority
         self.nodeId_to_nodeInfo_dict = {}
         self.edge_to_weight_dict = {}
         self.nodeId_to_nodes_dict = {}
@@ -54,11 +57,29 @@ class GraphParser:
         # len(common_ways) can be > 1 if two or more ways are parallel to each other between two nodes.
         # For example, we have a road and a park way
         common_ways = ways_n0 & ways_n1
-        weight = sum(way.get_quietness_value() for way in common_ways)
+        weight = 1
+        if self.path_way_priority == PRIORITY_QUIETNESS:
+            # Is sum a good idea? Better min?
+            weight = sum(way.get_quietness_value() for way in common_ways)
+        elif self.path_way_priority == PRIORITY_SHORT_DISTANCE:
+            weight = self.get_distance_for_nodes(self.get_first_node(node_ids_0),
+                                                 self.get_first_node(node_ids_1))
         return weight
+
+    def get_first_node(self, node_ids: str):
+        return node_ids.split(NODE_SEPARATOR)[0]
 
     def get_ways_for_nodes(self, node_ids: str):
         ways = set()
         for node_id in node_ids.split(NODE_SEPARATOR):
             ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
         return ways
+
+    def get_distance_for_nodes(self, node_id_0, node_id_1):
+        node_0 = self.nodeId_to_nodeInfo_dict[node_id_0]
+        node_1 = self.nodeId_to_nodeInfo_dict[node_id_1]
+
+        coordinates_0 = (node_0.lat, node_0.lon)
+        coordinates_1 = (node_1.lat, node_1.lon)
+
+        return haversine(coordinates_0, coordinates_1, unit=Unit.METERS)
