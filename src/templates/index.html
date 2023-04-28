@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 xmlns="http://www.w3.org/1999/html">{% block title %} Add a New Message {% endblock %}</h1>
+<form method="post">
+    <table>
+        <tr>
+            <td>
+                <label>Place Name</label>
+                <br>
+                <input type="text" name="place_name"
+                       placeholder="Place Name"
+                       value="{{ request.form['place_name'] }}"/>
+                <br>
+                <label>Start Node</label>
+                <br>
+                <input type="number" name="start_node" min="1"
+                       placeholder="Start Node"
+                       value="{{ request.form['start_node'] }}"/>
+                <br>
+                <label>End Node</label>
+                <br>
+                <input type="number" name="end_node" min="1"
+                       placeholder="End Node"
+                       value="{{ request.form['end_node'] }}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Path Priority</label>
+                <br>
+                <input type="radio" id="quietness" name="path_way_priority" value="quietness" checked>
+                <label for="quietness">quietness</label><br>
+                <input type="radio" id="distance" name="path_way_priority" value="distance">
+                <label for="distance">distance</label><br>
+            </td>
+        </tr>
+
+    </table>
+    <button type="submit">Submit</button>
+</form>
+
+<p>
+    Example values:
+    <br>
+    Place: Balaguer
+    <br>
+    Node Ids: 6845757797 2215019286 2215019208
+    <br>
+</p>
+{% endblock %}

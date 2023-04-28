@@ -11,12 +11,12 @@ highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the 
                  'living_street': 2,
                  'pedestrian': 3,
                  'track': 1,
-                 'road': 5,  # Unkown type of road
+                 'road': 5,  # Unknown type of road
 
                  'footway': 1,
                  'bridleway': 1,
                  'steps': 3,  # Depends on where they are. Should maybe delete it
-                 'path': 2,  # Unspecifyed path
+                 'path': 2,  # Unspecified path
                  'sidewalk': 3,
                  'crossing': 5,
                  }

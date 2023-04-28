@@ -3,6 +3,7 @@ from pathlib import Path
 from dijkstra import DijkstraSPF
 
 from src import graph_parser
+from src.constants import PRIORITY_QUIETNESS
 from src.graph_parser import GraphParser
 from src.graph_elements import highway_types
 
@@ -22,7 +23,7 @@ NODE_TO_COMPOSED_NODE = '9311288435'
 
 @pytest.fixture()
 def dijkstra_ways_init_simple_node():
-    parser = GraphParser(graph_file_path, map_file_path)
+    parser = GraphParser(graph_file_path, map_file_path, PRIORITY_QUIETNESS)
     graph = parser.parse_simplified_map_to_graph()
     dijkstra = DijkstraSPF(graph, TEST_INIT_POINT)
     return dijkstra
@@ -30,7 +31,7 @@ def dijkstra_ways_init_simple_node():
 
 @pytest.fixture()
 def dijkstra_ways_init_composed_node():
-    parser = GraphParser(graph_file_path, map_file_path)
+    parser = GraphParser(graph_file_path, map_file_path, PRIORITY_QUIETNESS)
     graph = parser.parse_simplified_map_to_graph()
     dijkstra = DijkstraSPF(graph, COMPOSED_NODE)
     return dijkstra
@@ -38,7 +39,7 @@ def dijkstra_ways_init_composed_node():
 
 @pytest.fixture()
 def simplified_graph():
-    parser = GraphParser(graph_file_path, map_file_path)
+    parser = GraphParser(graph_file_path, map_file_path, PRIORITY_QUIETNESS)
     parser.parse_simplified_map_to_graph()
     return parser
 

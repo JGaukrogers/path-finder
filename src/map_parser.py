@@ -14,8 +14,8 @@ class MapParser:
         self.parse_ways(dom_parser, node_to_way)
         self.parse_node_coordinates(dom_parser, node_to_way)
 
-    def parse_ways(self, dom_parser, node_to_way: dict[str, NodeInfo]):
-        xml_ways = dom_parser.getElementsByTagName('way')
+    def parse_ways(self, osm_map_parser, node_to_way: dict[str, NodeInfo]):
+        xml_ways = osm_map_parser.getElementsByTagName('way')
         for way in xml_ways:
             node_list = way.getElementsByTagName('nd')
             for node in node_list:
@@ -23,8 +23,8 @@ class MapParser:
                 if node_value in node_to_way:
                     node_to_way[node_value].ways.add(Way(way))
 
-    def parse_node_coordinates(self, dom_parser, node_to_way: dict[str, NodeInfo]):
-        xml_nodes = dom_parser.getElementsByTagName('node')
+    def parse_node_coordinates(self, osm_map_parser, node_to_way: dict[str, NodeInfo]):
+        xml_nodes = osm_map_parser.getElementsByTagName('node')
         for xml_node in xml_nodes:
             node_id = xml_node.attributes['id'].value
             if node_id in node_to_way:
