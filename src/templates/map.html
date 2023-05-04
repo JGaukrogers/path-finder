@@ -14,17 +14,27 @@
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
 
-	var marker = L.marker([51.5, -0.09]).addTo(map);
-	marker.bindPopup("Start point").openPopup();
+	var markers = {}
 
 	function onMapClick(e) {
-	    var marker = L.marker(e.latlng, {draggable:'true', title:'start point'}).addTo(map);
+        if (typeof markers["start_marker"] == "undefined") {
+	        var start_marker = L.marker(e.latlng, {draggable:'true', title:'start point'}).addTo(map);
+	        start_marker.bindPopup("Start point").openPopup();
+	        markers["start_marker"] = start_marker;
+	    }
+	    else if (typeof markers["end_marker"] == "undefined") {
+	        var end_marker = L.marker(e.latlng, {draggable:'true', title:'end point'}).addTo(map);
+	        end_marker.bindPopup("End point").openPopup();
+	        markers["end_marker"] = end_marker;
+	    }
     }
 
     map.on('click', onMapClick);
 
     function functionToExecute(){
-        alert("Button clicked");
+        if (map.hasLayer(start_marker)) {
+            map.removeLayer(start_marker);
+        }
     }
 
 </script>
