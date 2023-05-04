@@ -51,4 +51,4 @@ def index():
             return redirect(url_for('get_route', area_name=place_name, init_point=start_node, end_point=end_node,
                                     path_way_priority=path_way_priority))
 
-    return render_template('index.html')
+    return render_template('map.html')
