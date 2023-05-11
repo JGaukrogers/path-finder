@@ -36,10 +36,14 @@ def get_route(area_name, init_point, end_point, path_way_priority):
 @app.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
-        place_name = request.form['place_name'].strip()
-        start_node = request.form['start_node'].strip()
-        end_node = request.form['end_node'].strip()
-        path_way_priority = request.form['path_way_priority']
+        place_name = request.json['place_name'].strip()
+        path_way_priority = request.json['path_way_priority']
+        start_marker = request.json['start_marker']
+        end_marker = request.json['end_marker']
+
+        # Temporary
+        start_node = request.json['start_node'].strip()
+        end_node = request.json['end_node'].strip()
 
         if not place_name:
             flash('Place name is required!')
