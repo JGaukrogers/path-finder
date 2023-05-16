@@ -98,7 +98,3 @@ class GraphParser:
                 closest_node = node_id
 
         return closest_node
-
-
-test_str = 'print("oopsie")'
-eval(test_str)
