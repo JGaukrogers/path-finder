@@ -1,3 +1,5 @@
+import math
+
 from dijkstra import Graph
 
 from src.constants import PRIORITY_QUIETNESS, PRIORITY_SHORT_DISTANCE
@@ -83,3 +85,20 @@ class GraphParser:
         coordinates_1 = (node_1.lat, node_1.lon)
 
         return haversine(coordinates_0, coordinates_1, unit=Unit.METERS)
+
+    def get_closest_node_id(self, coordinates: tuple[float, float]):
+        closest_node = None
+        closest_distance = math.inf
+        for node_id, node in self.nodeId_to_nodeInfo_dict.items():
+            lat = node.lat
+            lon = node.lon
+            distance = haversine((lat, lon), (coordinates[0], coordinates[1]), unit=Unit.METERS)
+            if distance < closest_distance:
+                closest_distance = distance
+                closest_node = node_id
+
+        return closest_node
+
+
+test_str = 'print("oopsie")'
+eval(test_str)
