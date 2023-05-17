@@ -1,37 +1,37 @@
-import ast
 import os
 
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
-# from decouple import config
 
 import src.constants as constants
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
 
+# from decouple import config
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
 
 
-def str_to_tuple(str_to_convert: str) -> tuple:
-    converted_str = ast.literal_eval(str_to_convert)
-    if type(converted_str) != tuple:
-        raise TypeError
-    if len(converted_str) != 2:
-        raise TypeError
-    if type(converted_str[0]) != float or type(converted_str[1]) != float:
-        raise TypeError
-    return converted_str
+# def str_to_tuple(str_to_convert: str) -> tuple:
+#     converted_str = ast.literal_eval(str_to_convert)
+#     if type(converted_str) != tuple:
+#         raise TypeError
+#     if len(converted_str) != 2:
+#         raise TypeError
+#     if type(converted_str[0]) != float or type(converted_str[1]) != float:
+#         raise TypeError
+#     return converted_str
 
 
-@app.route('/get_route/<area_name>/<init_point>/<end_point>/<path_way_priority>')
-def get_route(area_name, init_point, end_point, path_way_priority):
+@app.route('/get_route/<area_name>/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
+def get_route(area_name, init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
     # TODO: check that the result is a tuple of floats!
     # TODO: show proper error page if not tuple of floats
-    init_point = str_to_tuple(init_point)
-    end_point = str_to_tuple(end_point)
+    init_point = (float(init_point_lat), float(init_point_lon))
+    end_point = (float(end_point_lat), float(end_point_lon))
 
     data_downloader = DataDownloader(area_name, ophois=constants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
@@ -72,7 +72,8 @@ def index():
         elif not end_marker:
             flash('End node is required!')
         else:
-            return redirect(url_for('get_route', area_name=place_name, init_point=start_marker, end_point=end_marker,
+            return redirect(url_for('get_route', area_name=place_name, init_point_lat=start_marker[0], init_point_lon=start_marker[1],
+                                    end_point_lat=end_marker[0], end_point_lon=end_marker[1],
                                     path_way_priority=path_way_priority))
 
     return render_template('map.html')
