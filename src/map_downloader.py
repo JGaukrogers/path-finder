@@ -30,7 +30,7 @@ class DataDownloader:
     def is_ophois_available(self):
         try:
             res = subprocess.check_output(constants.COMMAND_OPHOIS_AVAILABLE.format(ophois_path=self.ophois), shell=True)
-            print('Decoded string: ', res.decode('utf-8'))
+            # print('Decoded string: ', res.decode('utf-8'))
         except subprocess.CalledProcessError:
             return False
         return True

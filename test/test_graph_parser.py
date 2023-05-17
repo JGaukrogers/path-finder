@@ -66,5 +66,4 @@ def test_composed_node_has_right_number_of_ways(simplified_graph):
 
 
 def test_composed_node_connects_one_street(dijkstra_ways_init_composed_node):
-    print(dijkstra_ways_init_composed_node.get_path(NODE_TO_COMPOSED_NODE))
     assert dijkstra_ways_init_composed_node.get_distance(NODE_TO_COMPOSED_NODE) == highway_types['track']
