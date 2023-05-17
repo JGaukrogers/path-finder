@@ -1,10 +1,11 @@
+import ast
 import os
 
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
 # from decouple import config
 
-import src.constants as contants
+import src.constants as constants
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
@@ -15,9 +16,12 @@ messages = []
 
 
 def str_to_tuple(str_to_convert: str) -> tuple:
-    # TODO: find something that does not run code
-    converted_str = eval(str_to_convert)
+    converted_str = ast.literal_eval(str_to_convert)
     if type(converted_str) != tuple:
+        raise TypeError
+    if len(converted_str) != 2:
+        raise TypeError
+    if type(converted_str[0]) != float or type(converted_str[1]) != float:
         raise TypeError
     return converted_str
 
@@ -29,11 +33,11 @@ def get_route(area_name, init_point, end_point, path_way_priority):
     init_point = str_to_tuple(init_point)
     end_point = str_to_tuple(end_point)
 
-    data_downloader = DataDownloader(area_name, ophois=contants.DEFAULT_OPHOIS)
+    data_downloader = DataDownloader(area_name, ophois=constants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
-        parser = GraphParser(graph_file_path=contants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name=area_name),
-                             map_file_path=contants.OSM_FILENAME_TEMPLATE.format(area_name=area_name),
+        parser = GraphParser(graph_file_path=constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name=area_name),
+                             map_file_path=constants.OSM_FILENAME_TEMPLATE.format(area_name=area_name),
                              path_way_priority=path_way_priority)
         graph = parser.parse_simplified_map_to_graph()
 
@@ -42,8 +46,9 @@ def get_route(area_name, init_point, end_point, path_way_priority):
 
         dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
-        displayer.get_quietest_way(init_point, end_point, outfile_path=contants.HTML_OUTPATH.format(area_name=area_name))
-        return render_template(contants.HTML_OUTFILE.format(area_name=area_name))
+        displayer.get_quietest_way(init_point, end_point, outfile_path=constants.HTML_OUTPATH.format(area_name=area_name))
+        print(f'template to render: {constants.HTML_OUTFILE.format(area_name=area_name)}')
+        return render_template(constants.HTML_OUTFILE.format(area_name=area_name))
 
     else:
         return '<p>An error occurred</p>'
