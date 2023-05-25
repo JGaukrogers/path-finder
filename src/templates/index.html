@@ -11,18 +11,18 @@
                 <input type="text" name="place_name" id="place_name"
                        placeholder="Place Name"
                        value="{{ request.form['place_name'] }}"/>
-                <br>
-                <label>Start Node</label>
-                <br>
-                <input type="number" name="start_node" id="start_node" min="1"
-                       placeholder="Start Node"
-                       value="{{ request.form['start_node'] }}"/>
-                <br>
-                <label>End Node</label>
-                <br>
-                <input type="number" name="end_node" id="end_node" min="1"
-                       placeholder="End Node"
-                       value="{{ request.form['end_node'] }}"/>
+<!--                <br>-->
+<!--                <label>Start Node</label>-->
+<!--                <br>-->
+<!--                <input type="number" name="start_node" id="start_node" min="1"-->
+<!--                       placeholder="Start Node"-->
+<!--                       value="{{ request.form['start_node'] }}"/>-->
+<!--                <br>-->
+<!--                <label>End Node</label>-->
+<!--                <br>-->
+<!--                <input type="number" name="end_node" id="end_node" min="1"-->
+<!--                       placeholder="End Node"-->
+<!--                       value="{{ request.form['end_node'] }}"/>-->
             </td>
         </tr>
         <tr>
@@ -47,11 +47,7 @@
             var start_marker = markers["start_marker"].getLatLng();
             var end_marker = markers["end_marker"].getLatLng();
 
-            // Temporary
-            var start_node = document.getElementById("start_node").value;
-            var end_node = document.getElementById("end_node").value;
-
-            $.ajax({
+            var request = $.ajax({
                 contentType: "application/json",
                 url: "/",
                 type: "POST",
@@ -59,16 +55,20 @@
                                       'end_marker': end_marker,
                                       'place_name': place_name,
                                       'path_way_priority': path_way_priority,
-                                      'start_node': start_node,
-                                      'end_node': end_node,
                                       }),
-                dataType: "json",
-                success: function(response) {
-                },
-                error: function(err) {
-                    console.log(err);
-                }
+                dataType: "html",
+//                success: function(response) {
+//                    $("#response").html(response);
+//                        return(response)
+//                },
+//                error: function(err) {
+//                    console.log(err);
+//                }
             })
+            .done(function( html ) {
+    $( "#results" ).append( html );
+  });
+            console.log(request)
         }
     </script>
 </form>
