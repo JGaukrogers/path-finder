@@ -47,7 +47,6 @@ def get_route(area_name, init_point_lat, init_point_lon, end_point_lat, end_poin
         dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
         displayer.get_quietest_way(init_point, end_point, outfile_path=constants.HTML_OUTPATH.format(area_name=area_name))
-        print(f'template to render: {constants.HTML_OUTFILE.format(area_name=area_name)}')
         return render_template(constants.HTML_OUTFILE.format(area_name=area_name))
 
     else:

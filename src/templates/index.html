@@ -11,18 +11,6 @@
                 <input type="text" name="place_name" id="place_name"
                        placeholder="Place Name"
                        value="{{ request.form['place_name'] }}"/>
-<!--                <br>-->
-<!--                <label>Start Node</label>-->
-<!--                <br>-->
-<!--                <input type="number" name="start_node" id="start_node" min="1"-->
-<!--                       placeholder="Start Node"-->
-<!--                       value="{{ request.form['start_node'] }}"/>-->
-<!--                <br>-->
-<!--                <label>End Node</label>-->
-<!--                <br>-->
-<!--                <input type="number" name="end_node" id="end_node" min="1"-->
-<!--                       placeholder="End Node"-->
-<!--                       value="{{ request.form['end_node'] }}"/>-->
             </td>
         </tr>
         <tr>
@@ -37,48 +25,25 @@
         </tr>
 
     </table>
-    <button type="button" onclick="test_function()">Submit</button>
+    <button type="button" onclick="get_path()">Submit</button>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        function test_function(){
+        function get_path(){
             var place_name = document.getElementById("place_name").value;
             var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
             var start_marker = markers["start_marker"].getLatLng();
             var end_marker = markers["end_marker"].getLatLng();
 
-            var request = $.ajax({
-                contentType: "application/json",
-                url: "/",
-                type: "POST",
-                data: JSON.stringify({'start_marker': start_marker,
-                                      'end_marker': end_marker,
-                                      'place_name': place_name,
-                                      'path_way_priority': path_way_priority,
-                                      }),
-                dataType: "html",
-//                success: function(response) {
-//                    $("#response").html(response);
-//                        return(response)
-//                },
-//                error: function(err) {
-//                    console.log(err);
-//                }
-            })
-            .done(function( html ) {
-    $( "#results" ).append( html );
-  });
-            console.log(request)
+            window.open("/get_route/"
+            + place_name + "/"
+            + start_marker["lat"] + "/"
+            + start_marker["lng"] + "/"
+            + end_marker["lat"] + "/"
+            + end_marker["lng"] + "/"
+            + path_way_priority).focus();
+
         }
     </script>
 </form>
 
-<p>
-    Example values:
-    <br>
-    Place: Balaguer
-    <br>
-    Node Ids: 6845757797 2215019286 2215019208
-    <br>
-</p>
 {% endblock %}

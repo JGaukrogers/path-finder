@@ -3,7 +3,7 @@
 
 <div id="map" style="width: 600px; height: 400px;">
 </div>
-<button onclick="functionToExecute()">Reset map</button>
+<button onclick="resetMap()">Reset map</button>
 
 <script>
 
@@ -31,9 +31,9 @@
 
     map.on('click', onMapClick);
 
-    function functionToExecute(){
-        if (map.hasLayer(start_marker)) {
-            map.removeLayer(start_marker);
+    function resetMap(){
+        if (map.hasLayer(markers["start_marker"])) {
+            map.removeLayer(markers["start_marker"]);
         }
     }
 
