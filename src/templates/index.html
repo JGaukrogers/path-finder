@@ -29,10 +29,15 @@
 
     <script>
         function get_path(){
-            var place_name = document.getElementById("place_name").value;
+            var place_name = document.getElementById("place_name").value.trim();
             var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
             var start_marker = markers["start_marker"].getLatLng();
             var end_marker = markers["end_marker"].getLatLng();
+
+            if (!place_name) {
+                alert("Place name can't be empty");
+                return;
+            }
 
             window.open("/get_route/"
             + place_name + "/"
