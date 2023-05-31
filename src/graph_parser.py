@@ -11,6 +11,11 @@ SEPARATOR = '␟'
 NODE_SEPARATOR = '-'
 
 
+def make_frozenset(node_ids):
+    nodes_set = frozenset(node_ids.split(NODE_SEPARATOR))
+    return nodes_set
+
+
 class GraphParser:
 
     def __init__(self, graph_file_path: str, map_file_path: str, path_way_priority: str):
@@ -31,11 +36,11 @@ class GraphParser:
                     node_ids = fields[0]
                     for node_id in node_ids.split(NODE_SEPARATOR):
                         self.nodeId_to_nodeInfo_dict[node_id] = NodeInfo()
-                        self.nodeId_to_nodes_dict[node_id] = node_ids
+                        self.nodeId_to_nodes_dict[node_id] = make_frozenset(node_ids)
 
                 elif len(fields) == 2:
                     node_ids_0, node_ids_1 = fields
-                    self.edge_to_weight_dict[(node_ids_0, node_ids_1)] = None
+                    self.edge_to_weight_dict[(make_frozenset(node_ids_0), make_frozenset(node_ids_1))] = None
 
         self.populate_node_to_way_dict()
         graph = self.calculate_weights()
@@ -73,7 +78,7 @@ class GraphParser:
 
     def get_ways_for_nodes(self, node_ids: str):
         ways = set()
-        for node_id in node_ids.split(NODE_SEPARATOR):
+        for node_id in node_ids:
             ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
         return ways
 
