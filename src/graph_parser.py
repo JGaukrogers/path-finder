@@ -31,11 +31,11 @@ class GraphParser:
                     node_ids = fields[0]
                     for node_id in node_ids.split(NODE_SEPARATOR):
                         self.nodeId_to_nodeInfo_dict[node_id] = NodeInfo()
-                        self.nodeId_to_nodes_dict[node_id] = node_ids
+                        self.nodeId_to_nodes_dict[node_id] = self.make_frozenset(node_ids)
 
                 elif len(fields) == 2:
                     node_ids_0, node_ids_1 = fields
-                    self.edge_to_weight_dict[(node_ids_0, node_ids_1)] = None
+                    self.edge_to_weight_dict[(self.make_frozenset(node_ids_0), self.make_frozenset(node_ids_1))] = None
 
         self.populate_node_to_way_dict()
         graph = self.calculate_weights()
@@ -68,12 +68,13 @@ class GraphParser:
                                                  self.get_first_node(node_ids_1))
         return weight
 
-    def get_first_node(self, node_ids: str):
+    @staticmethod
+    def get_first_node(node_ids: str):
         return node_ids.split(NODE_SEPARATOR)[0]
 
     def get_ways_for_nodes(self, node_ids: str):
         ways = set()
-        for node_id in node_ids.split(NODE_SEPARATOR):
+        for node_id in node_ids:
             ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
         return ways
 
@@ -98,3 +99,8 @@ class GraphParser:
                 closest_node = node_id
 
         return closest_node
+
+    @staticmethod
+    def make_frozenset(node_ids):
+        nodes_set = frozenset(node_ids.split(NODE_SEPARATOR))
+        return nodes_set
