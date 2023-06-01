@@ -30,15 +30,24 @@
 
     <script>
         function get_path(){
-            var place_name = document.getElementById("place_name").value.trim();
-            var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
-            var start_marker = markers["start_marker"].getLatLng();
-            var end_marker = markers["end_marker"].getLatLng();
 
+            if (!markers["start_marker"]) {
+                alert("Start marker not set");
+                return;
+            }
+            if (!markers["end_marker"]) {
+                alert("End marker not set");
+                return;
+            }
+            var place_name = document.getElementById("place_name").value.trim();
             if (!place_name) {
                 alert("Place name can't be empty");
                 return;
             }
+
+            var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
+            var start_marker = markers["start_marker"].getLatLng();
+            var end_marker = markers["end_marker"].getLatLng();
 
             window.open("/get_route/"
             + place_name + "/"
