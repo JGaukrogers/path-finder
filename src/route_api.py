@@ -8,22 +8,9 @@ from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
 
-# from decouple import config
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
-
-
-# def str_to_tuple(str_to_convert: str) -> tuple:
-#     converted_str = ast.literal_eval(str_to_convert)
-#     if type(converted_str) != tuple:
-#         raise TypeError
-#     if len(converted_str) != 2:
-#         raise TypeError
-#     if type(converted_str[0]) != float or type(converted_str[1]) != float:
-#         raise TypeError
-#     return converted_str
 
 
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')

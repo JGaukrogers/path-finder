@@ -1,0 +1,4 @@
+dijkstra==0.2.1
+Flask==2.2.5
+folium==0.14.0
+haversine==2.8.0
