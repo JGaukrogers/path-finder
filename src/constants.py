@@ -1,8 +1,8 @@
 DEFAULT_OPHOIS = './bin/ophois'
 
-SIMPLE_GRAPH_FILENAME_TEMPLATE = '{area_name}-simplified.graph'
-EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{area_name}-extracted.graph'
-OSM_FILENAME_TEMPLATE = '{area_name}.osm'
+SIMPLE_GRAPH_FILENAME_TEMPLATE = '{file_name}-simplified.graph'
+EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{file_name}-extracted.graph'
+OSM_FILENAME_TEMPLATE = '{file_name}.osm'
 
 COMMAND_DOWNLOAD_CITY = \
     'wget "https://overpass-api.de/api/interpreter?data=[out:xml]; way({s},{w},{n},{e})[highway]; (._;>;); out body;"'\
@@ -12,8 +12,8 @@ COMMAND_SIMPLIFY_GRAPH = 'cat {extracted_graph} | {ophois_path} simplify --delta
 COMMAND_REMOVE_FILES = 'rm {extracted_graph}'
 COMMAND_OPHOIS_AVAILABLE = '{ophois_path} --help'
 
-HTML_OUTFILE = '{area_name}.html'
-HTML_OUTPATH = 'src/templates/{area_name}.html'
+HTML_OUTFILE = '{file_name}.html'
+HTML_OUTPATH = 'src/templates/{file_name}.html'
 
 PRIORITY_QUIETNESS = 'quietness'
 PRIORITY_SHORT_DISTANCE = 'distance'

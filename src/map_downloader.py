@@ -8,9 +8,9 @@ class DataDownloader:
         self.file_name = file_name
         self.area_boundaries = area_boundaries
         self.ophois = ophois
-        self.osm_file = constants.OSM_FILENAME_TEMPLATE.format(area_name=file_name)
-        self.extracted_graph = constants.EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(area_name=file_name)
-        self.simplified_graph = constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name=file_name)
+        self.osm_file = constants.OSM_FILENAME_TEMPLATE.format(file_name=file_name)
+        self.extracted_graph = constants.EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
+        self.simplified_graph = constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
 
     def get_simplified_graph(self):
         if self.is_ophois_available():

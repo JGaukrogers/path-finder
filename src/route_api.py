@@ -19,7 +19,7 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     # TODO: check that the result is a tuple of floats!
     # TODO: show proper error page if not tuple of floats
     test_timestamp = time.time_ns()
-    area_name = str(test_timestamp)
+    file_name = str(test_timestamp)
     init_point = (float(init_point_lat), float(init_point_lon))
     end_point = (float(end_point_lat), float(end_point_lon))
 
@@ -31,11 +31,11 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
     area_boundaries = {'north': north, 'south': south, 'east': east, 'west': west}
 
-    data_downloader = DataDownloader(area_name, area_boundaries, ophois=constants.DEFAULT_OPHOIS)
+    data_downloader = DataDownloader(file_name, area_boundaries, ophois=constants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
-        parser = GraphParser(graph_file_path=constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name=area_name),
-                             map_file_path=constants.OSM_FILENAME_TEMPLATE.format(area_name=area_name),
+        parser = GraphParser(graph_file_path=constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
+                             map_file_path=constants.OSM_FILENAME_TEMPLATE.format(file_name=file_name),
                              path_way_priority=path_way_priority)
         graph = parser.parse_simplified_map_to_graph()
 
@@ -44,8 +44,8 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
         dijkstra = DijkstraSPF(graph, parser.nodeId_to_nodes_dict[init_point])
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
-        displayer.get_quietest_way(init_point, end_point, outfile_path=constants.HTML_OUTPATH.format(area_name=area_name))
-        return render_template(constants.HTML_OUTFILE.format(area_name=area_name))
+        displayer.get_quietest_way(init_point, end_point, outfile_path=constants.HTML_OUTPATH.format(file_name=file_name))
+        return render_template(constants.HTML_OUTFILE.format(file_name=file_name))
 
     else:
         return '<p>An error occurred</p>'
@@ -66,7 +66,7 @@ def index():
         elif not end_marker:
             flash('End node is required!')
         else:
-            return redirect(url_for('get_route', area_name='TEMP', init_point_lat=start_marker[0], init_point_lon=start_marker[1],
+            return redirect(url_for('get_route', init_point_lat=start_marker[0], init_point_lon=start_marker[1],
                                     end_point_lat=end_marker[0], end_point_lon=end_marker[1],
                                     path_way_priority=path_way_priority))
 
