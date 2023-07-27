@@ -1,4 +1,5 @@
 import os
+import time
 
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
@@ -17,7 +18,8 @@ messages = []
 def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
     # TODO: check that the result is a tuple of floats!
     # TODO: show proper error page if not tuple of floats
-    area_name = 'test_city'
+    test_timestamp = time.time_ns()
+    area_name = str(test_timestamp)
     init_point = (float(init_point_lat), float(init_point_lon))
     end_point = (float(end_point_lat), float(end_point_lon))
 
@@ -29,7 +31,7 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
     area_boundaries = {'north': north, 'south': south, 'east': east, 'west': west}
 
-    data_downloader = DataDownloader(area_boundaries, ophois=constants.DEFAULT_OPHOIS)
+    data_downloader = DataDownloader(area_name, area_boundaries, ophois=constants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
         parser = GraphParser(graph_file_path=constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(area_name=area_name),
