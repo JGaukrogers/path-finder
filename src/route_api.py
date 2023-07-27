@@ -26,8 +26,8 @@ messages = []
 #     return converted_str
 
 
-@app.route('/get_route/<area_name>/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
-def get_route(area_name, init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
+@app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
+def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
     # TODO: check that the result is a tuple of floats!
     # TODO: show proper error page if not tuple of floats
     area_name = 'test_city'
@@ -65,7 +65,6 @@ def get_route(area_name, init_point_lat, init_point_lon, end_point_lat, end_poin
 @app.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
-        place_name = request.json['place_name'].strip()
         path_way_priority = request.json['path_way_priority']
         start_marker = request.json['start_marker']
         end_marker = request.json['end_marker']
@@ -73,14 +72,12 @@ def index():
         start_marker = (start_marker['lat'], start_marker['lng'])
         end_marker = (end_marker['lat'], end_marker['lng'])
 
-        if not place_name:
-            flash('Place name is required!')
-        elif not start_marker:
+        if not start_marker:
             flash('Start node is required!')
         elif not end_marker:
             flash('End node is required!')
         else:
-            return redirect(url_for('get_route', area_name=place_name, init_point_lat=start_marker[0], init_point_lon=start_marker[1],
+            return redirect(url_for('get_route', area_name='TEMP', init_point_lat=start_marker[0], init_point_lon=start_marker[1],
                                     end_point_lat=end_marker[0], end_point_lon=end_marker[1],
                                     path_way_priority=path_way_priority))
 

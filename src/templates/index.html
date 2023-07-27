@@ -7,15 +7,6 @@
     <table>
         <tr>
             <td>
-                <label>Place Name</label>
-                <br>
-                <input type="text" name="place_name" id="place_name"
-                       placeholder="Place Name"
-                       value="{{ request.form['place_name'] }}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <label>Path Priority</label>
                 <br>
                 <input type="radio" id="quietness" name="path_way_priority" value="quietness" checked>
@@ -39,18 +30,12 @@
                 alert("End marker not set");
                 return;
             }
-            var place_name = document.getElementById("place_name").value.trim();
-            if (!place_name) {
-                alert("Place name can't be empty");
-                return;
-            }
 
             var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
             var start_marker = markers["start_marker"].getLatLng();
             var end_marker = markers["end_marker"].getLatLng();
 
             window.open("/get_route/"
-            + place_name + "/"
             + start_marker["lat"] + "/"
             + start_marker["lng"] + "/"
             + end_marker["lat"] + "/"
