@@ -4,7 +4,7 @@ SIMPLE_GRAPH_FILENAME_TEMPLATE = '{area_name}-simplified.graph'
 EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{area_name}-extracted.graph'
 OSM_FILENAME_TEMPLATE = '{area_name}.osm'
 
-COMMAND_DOWNLOAD_CITY = '{ophois_path} download --city {area_name}'
+COMMAND_DOWNLOAD_CITY = 'wget "https://overpass-api.de/api/interpreter?data=[out:xml]; way({s},{w},{n},{e})[highway]; (._;>;); out body;" --output-document=test_city.osm'
 COMMAND_EXTRACT_GRAPH = 'cat {osm_file} | {ophois_path} format | {ophois_path} extract > {extracted_graph}'
 COMMAND_SIMPLIFY_GRAPH = 'cat {extracted_graph} | {ophois_path} simplify --delta 10.0 > {simplified_graph}'
 COMMAND_REMOVE_FILES = 'rm {extracted_graph}'
