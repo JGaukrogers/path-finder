@@ -5,19 +5,20 @@
 - Dijkstra library: https://pypi.org/project/dijkstra/
 - Overpass API
 
-## Steps
-1. get data from openstreepmap (via Overpass or Ophois)
-2. Get simplified map and node relationship (edge)
-3. For each edge, get the weight
-   1. Use the node ids to get the way(s)
-   2. Extract needed information from the ways to calculate the weight
-4. Run Dijkstra
-5. Display the result (how?)
+## How to install
+TBD
+- Setup a Flask server
+- Download Ophois and create a symbolic link
 
-## Some considerations
-- We can mock downloading the osm data at firs by using an already downloaded file
-- The user has to be able to choose which criteria is important, but we can mock this at first
-  - We can just pretend the user wants to get the quietest way
+## Usage
+1. Open the site in a browser. 
+2. Scroll the Map to the position you want to get your way.
+3. Click two points on the map, where you want to have your start and end point.
+You can also drag the start and end points to another position.
+4. On _Path Priority_, select if you want the quietest path or the shortest one.
+5. Click on _Submit_ to view the result.
+![usage_start.png](usage_start.png)
+![usage_result.png](usage_result.png)
 
 ## Ophois usage example
 Execute following commands in the command shell:
