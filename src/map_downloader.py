@@ -1,5 +1,6 @@
 import subprocess
 import src.constants as constants
+from src.format import extract_and_write_to_file
 
 
 class DataDownloader:
@@ -22,9 +23,7 @@ class DataDownloader:
                                                        e=self.area_boundaries['east'],
                                                        w=self.area_boundaries['west']),
                 shell=True)
-            subprocess.check_output(
-                constants.COMMAND_EXTRACT_GRAPH.format(osm_file=self.osm_file, ophois_path=self.ophois,
-                                                       extracted_graph=self.extracted_graph), shell=True)
+            extract_and_write_to_file(self.osm_file, self.extracted_graph)
             subprocess.check_output(
                 constants.COMMAND_SIMPLIFY_GRAPH.format(extracted_graph=self.extracted_graph, ophois_path=self.ophois,
                                                         simplified_graph=self.simplified_graph), shell=True)

@@ -43,7 +43,8 @@ class GraphParser:
 
     def populate_node_to_way_dict(self):
         map_parser = MapParser(self.map_file_path)
-        map_parser.parse_osm_map(self.nodeId_to_nodeInfo_dict)
+        map_parser.parse_osm_map_json(self.nodeId_to_nodeInfo_dict)
+        # map_parser.parse_osm_map(self.nodeId_to_nodeInfo_dict)
 
     def calculate_weights(self):
         graph = Graph()

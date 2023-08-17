@@ -23,13 +23,17 @@ highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the 
 
 
 class Way:
-    def __init__(self, xml_way: xml.dom.minidom.Element):
-        self.id = xml_way.getAttribute('id')
-        self.properties_dict = dict()
+    def __init__(self, json_way: dict):
+        self.id = json_way['id']
+        self.properties_dict = json_way['tags']
 
-        tags = xml_way.getElementsByTagName('tag')
-        for tag in tags:
-            self.properties_dict[tag.attributes['k'].value] = tag.attributes['v'].value
+    # def __init__(self, xml_way: xml.dom.minidom.Element):
+    #     self.id = xml_way.getAttribute('id')
+    #     self.properties_dict = dict()
+    #
+    #     tags = xml_way.getElementsByTagName('tag')
+    #     for tag in tags:
+    #         self.properties_dict[tag.attributes['k'].value] = tag.attributes['v'].value
 
     def __eq__(self, other):
         if isinstance(other, Way):
