@@ -23,13 +23,7 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     init_point = (float(init_point_lat), float(init_point_lon))
     end_point = (float(end_point_lat), float(end_point_lon))
 
-    north = max(init_point_lat, end_point_lat)
-    south = min(init_point_lat, end_point_lat)
-
-    east = max(init_point_lon, end_point_lon)
-    west = min(init_point_lon, end_point_lon)
-
-    area_boundaries = {'north': north, 'south': south, 'east': east, 'west': west}
+    area_boundaries = get_area_boundaries(end_point_lat, end_point_lon, init_point_lat, init_point_lon)
 
     data_downloader = DataDownloader(file_name, area_boundaries, ophois=constants.DEFAULT_OPHOIS)
     graph_downloaded = data_downloader.get_simplified_graph()
@@ -49,6 +43,15 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
     else:
         return '<p>An error occurred</p>'
+
+
+def get_area_boundaries(end_point_lat, end_point_lon, init_point_lat, init_point_lon):
+    north = max(init_point_lat, end_point_lat)
+    south = min(init_point_lat, end_point_lat)
+    east = max(init_point_lon, end_point_lon)
+    west = min(init_point_lon, end_point_lon)
+    area_boundaries = {'north': north, 'south': south, 'east': east, 'west': west}
+    return area_boundaries
 
 
 @app.route('/', methods=('GET', 'POST'))
