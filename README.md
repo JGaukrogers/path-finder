@@ -22,6 +22,7 @@ You can also drag the start and end points to another position.
 
 ## Run tests
 Single test: pytest test/test_display_map.py::test_create_graph_one_edge
+
 All tests: pytest test/
 
 ## Ophois usage example
