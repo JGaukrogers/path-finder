@@ -14,7 +14,7 @@ class MapParser:
             json_string = json.load(file)
             for element in json_string['elements']:
                 if element['type'] == 'node':
-                    node_id = element['id']
+                    node_id = str(element['id'])
                     if node_id in node_to_way:
                         node_to_way[node_id].lat = float(element['lat'])
                         node_to_way[node_id].lon = float(element['lon'])
