@@ -20,6 +20,7 @@ class MapParser:
                         node_to_way[node_id].lon = float(element['lon'])
                 if element['type'] == 'way':
                     node_list = element['nodes']
+                    node_list = [str(node) for node in node_list]
                     for node_value in node_list:
                         if node_value in node_to_way:
                             node_to_way[node_value].ways.add(Way(element))
