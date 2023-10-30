@@ -45,7 +45,8 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
         return '<p>An error occurred</p>'
 
 
-def get_area_boundaries(end_point_lat, end_point_lon, init_point_lat, init_point_lon):
+def get_area_boundaries(end_point_lat: float, end_point_lon: float,
+                        init_point_lat: float, init_point_lon: float):
     north = max(init_point_lat, end_point_lat)
     south = min(init_point_lat, end_point_lat)
     east = max(init_point_lon, end_point_lon)

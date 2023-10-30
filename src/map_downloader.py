@@ -16,8 +16,7 @@ class DataDownloader:
     def get_simplified_graph(self):
         if self.is_ophois_available():
             subprocess.check_output(
-                constants.COMMAND_DOWNLOAD_CITY.format(ophois_path=self.ophois,
-                                                       file_name=self.file_name,
+                constants.COMMAND_DOWNLOAD_CITY.format(file_name=self.file_name,
                                                        n=self.area_boundaries['north'],
                                                        s=self.area_boundaries['south'],
                                                        e=self.area_boundaries['east'],

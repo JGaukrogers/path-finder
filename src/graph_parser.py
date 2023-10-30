@@ -21,7 +21,7 @@ class GraphParser:
         self.edge_to_weight_dict = {}
         self.nodeId_to_nodes_dict = {}
 
-    def parse_simplified_map_to_graph(self):
+    def parse_simplified_map_to_graph(self) -> Graph:
 
         with open(self.graph_file_path, "r") as simplified_graph_file:
             for line in simplified_graph_file:
@@ -46,7 +46,7 @@ class GraphParser:
         map_parser.parse_osm_map_json(self.nodeId_to_nodeInfo_dict)
         # map_parser.parse_osm_map(self.nodeId_to_nodeInfo_dict)
 
-    def calculate_weights(self):
+    def calculate_weights(self) -> Graph:
         graph = Graph()
         for node_id_0, node_id_1 in self.edge_to_weight_dict:
             weight = self.get_weight(node_id_0, node_id_1)
