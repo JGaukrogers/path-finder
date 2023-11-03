@@ -48,7 +48,6 @@ def simplified_graph():
     return parser
 
 
-#@pytest.mark.skip('FIX: find out how to add wheights in graph. Rn they are all 0')
 def test_shortest_distance_is_correct(dijkstra_ways_init_simple_node):
     assert 9 == dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_LONG)
 
@@ -57,9 +56,8 @@ def test_get_right_path(dijkstra_ways_init_simple_node):
     assert dijkstra_ways_init_simple_node.get_path(TEST_END_POINT_LONG) == TEST_PATH_POSSIBLE_RESULT_1
 
 
-@pytest.mark.skip('FIX: why does it return inf?')
 def test_get_right_weight(dijkstra_ways_init_simple_node):
-    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_SHORT_ID) == highway_types['residential']
+    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_SHORT) == highway_types['residential']
 
 
 # Test for grouped nodes
