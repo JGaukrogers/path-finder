@@ -12,19 +12,21 @@ MOCK_GRAPH_FILE = str(resources_dir / 'ophois-graph.txt')
 MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
 
 
-def test_create_graph_one_edge():
-    test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
-    test_weighed_graph = test_graph_parser.parse_simplified_map_to_graph()
-    test_dijkstra = DijkstraSPF(test_weighed_graph, TEST_INIT_POINT_ID)
+test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
+test_weighed_graph = test_graph_parser.parse_simplified_map_to_graph()
 
+INIT_POINT = test_graph_parser.nodeId_to_nodes_dict[str(TEST_INIT_POINT_ID)]
+END_POINT_SHORT = test_graph_parser.nodeId_to_nodes_dict[str(TEST_END_POINT_SHORT_ID)]
+END_POINT_LONG = test_graph_parser.nodeId_to_nodes_dict[str(TEST_END_POINT_LONG_ID)]
+
+test_dijkstra = DijkstraSPF(test_weighed_graph, INIT_POINT)
+
+
+def test_create_graph_one_edge():
     map_displayer = MapDisplayer(test_graph_parser, test_dijkstra)
-    map_displayer.get_quietest_way(TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID)
+    map_displayer.get_quietest_way(str(TEST_INIT_POINT_ID), str(TEST_END_POINT_SHORT_ID), 'index_short.html')
 
 
 def test_create_graph_four_edges():
-    test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
-    test_weighed_graph = test_graph_parser.parse_simplified_map_to_graph()
-    test_dijkstra = DijkstraSPF(test_weighed_graph, TEST_INIT_POINT_ID)
-
     map_displayer = MapDisplayer(test_graph_parser, test_dijkstra)
-    map_displayer.get_quietest_way(TEST_INIT_POINT_ID, TEST_END_POINT_LONG_ID)
+    map_displayer.get_quietest_way(str(TEST_INIT_POINT_ID), str(TEST_END_POINT_LONG_ID), 'index_long.html')
