@@ -1,18 +1,14 @@
 import pytest
-from pathlib import Path
 from dijkstra import DijkstraSPF
 
 from src import graph_parser
 from src.constants import PRIORITY_QUIETNESS
-from src.graph_parser import GraphParser
 from src.graph_elements import highway_types
-from test.test_constants import TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, TEST_END_POINT_LONG_ID
+from src.graph_parser import GraphParser
+from test.test_constants import TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, TEST_END_POINT_LONG_ID, \
+    MOCK_GRAPH_FILE, MOCK_MAP_FILE
 
-resources_dir = Path(".") / 'resources'
-graph_file_path = str(resources_dir / 'ophois-graph.txt')
-map_file_path = str(resources_dir / 'my_town.osm')
-
-parser = GraphParser(graph_file_path, map_file_path, PRIORITY_QUIETNESS)
+parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
 graph = parser.parse_simplified_map_to_graph()
 
 TEST_INIT_POINT = parser.nodeId_to_nodes_dict[str(TEST_INIT_POINT_ID)]
