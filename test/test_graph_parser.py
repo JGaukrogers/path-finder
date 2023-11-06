@@ -11,9 +11,9 @@ from test.test_constants import TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, TES
 parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
 graph = parser.parse_simplified_map_to_graph()
 
-TEST_INIT_POINT = parser.nodeId_to_nodes_dict[str(TEST_INIT_POINT_ID)]
-TEST_END_POINT_SHORT = parser.nodeId_to_nodes_dict[str(TEST_END_POINT_SHORT_ID)]
-TEST_END_POINT_LONG = parser.nodeId_to_nodes_dict[str(TEST_END_POINT_LONG_ID)]
+TEST_INIT_POINT = parser.nodeId_to_nodes_dict[TEST_INIT_POINT_ID]
+TEST_END_POINT_SHORT = parser.nodeId_to_nodes_dict[TEST_END_POINT_SHORT_ID]
+TEST_END_POINT_LONG = parser.nodeId_to_nodes_dict[TEST_END_POINT_LONG_ID]
 
 TEST_PATH_POSSIBLE_RESULT_1 = [
     TEST_INIT_POINT,
