@@ -24,18 +24,11 @@ def format_json_to_graph(file_name: str) -> list[str]:
 
 
 def extract_way(element):
-    pair_list = []
     node_list = element['nodes']
     pairs = pairwise(node_list)
-    for p in pairs:
-        line = f'{p[0]}{SEPARATOR}{p[1]}\n'
-        pair_list.append(line)
+    pair_list = [f'{p[0]}{SEPARATOR}{p[1]}\n' for p in pairs]
     return pair_list
 
 
 def extract_node(element):
     return f'{element["id"]}{SEPARATOR}{element["lat"]}{SEPARATOR}{element["lon"]}\n'
-
-
-# parsed_graph = format_json_to_graph('test_json.osm')
-# print('\n'.join(parsed_graph))
