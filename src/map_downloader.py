@@ -8,7 +8,6 @@ from src.format import extract_and_write_to_file
 class DataDownloader:
 
     def __init__(self, file_name: str, area_boundaries: dict, ophois: str=constants.DEFAULT_OPHOIS):
-        self.file_name = file_name
         self.area_boundaries = area_boundaries
         self.ophois = ophois
         self.osm_file = constants.OSM_FILENAME_TEMPLATE.format(file_name=file_name)
