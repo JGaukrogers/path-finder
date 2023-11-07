@@ -20,6 +20,11 @@ You can also drag the start and end points to another position.
 ![usage_start.png](usage_start.png)
 ![usage_result.png](usage_result.png)
 
+## Run tests
+Single test: pytest test/test_display_map.py::test_create_graph_one_edge
+
+All tests: pytest test/
+
 ## Ophois usage example
 Execute following commands in the command shell:
 

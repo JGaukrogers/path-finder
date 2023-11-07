@@ -1,4 +1,3 @@
-import xml.dom.minidom
 from dataclasses import dataclass, field
 
 highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the noisiest highway type.
@@ -23,13 +22,9 @@ highway_types = {'motorway': 10,  # Autobahn. Including it as reference for the 
 
 
 class Way:
-    def __init__(self, xml_way: xml.dom.minidom.Element):
-        self.id = xml_way.getAttribute('id')
-        self.properties_dict = dict()
-
-        tags = xml_way.getElementsByTagName('tag')
-        for tag in tags:
-            self.properties_dict[tag.attributes['k'].value] = tag.attributes['v'].value
+    def __init__(self, json_way: dict):
+        self.id = json_way['id']
+        self.properties_dict = json_way['tags']
 
     def __eq__(self, other):
         if isinstance(other, Way):
@@ -38,6 +33,12 @@ class Way:
 
     def __hash__(self):
         return hash(self.id)
+
+    def __str__(self):
+        return f'id: {self.id} ; properties_dict: {self.properties_dict}'
+
+    def __repr__(self):
+        return f'id: {self.id} ; properties_dict: {self.properties_dict}'
 
     def get_quietness_value(self):
         highway_type = self.properties_dict['highway']

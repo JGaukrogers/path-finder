@@ -1,10 +1,11 @@
 import subprocess
 import src.constants as constants
+from src.format import extract_and_write_to_file
 
 
 class DataDownloader:
 
-    def __init__(self, file_name, area_boundaries, ophois=constants.DEFAULT_OPHOIS):
+    def __init__(self, file_name: str, area_boundaries: dict, ophois: str=constants.DEFAULT_OPHOIS):
         self.file_name = file_name
         self.area_boundaries = area_boundaries
         self.ophois = ophois
@@ -15,16 +16,13 @@ class DataDownloader:
     def get_simplified_graph(self):
         if self.is_ophois_available():
             subprocess.check_output(
-                constants.COMMAND_DOWNLOAD_CITY.format(ophois_path=self.ophois,
-                                                       file_name=self.file_name,
+                constants.COMMAND_DOWNLOAD_CITY.format(file_name=self.file_name,
                                                        n=self.area_boundaries['north'],
                                                        s=self.area_boundaries['south'],
                                                        e=self.area_boundaries['east'],
                                                        w=self.area_boundaries['west']),
                 shell=True)
-            subprocess.check_output(
-                constants.COMMAND_EXTRACT_GRAPH.format(osm_file=self.osm_file, ophois_path=self.ophois,
-                                                       extracted_graph=self.extracted_graph), shell=True)
+            extract_and_write_to_file(self.osm_file, self.extracted_graph)
             subprocess.check_output(
                 constants.COMMAND_SIMPLIFY_GRAPH.format(extracted_graph=self.extracted_graph, ophois_path=self.ophois,
                                                         simplified_graph=self.simplified_graph), shell=True)

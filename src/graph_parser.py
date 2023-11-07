@@ -21,7 +21,7 @@ class GraphParser:
         self.edge_to_weight_dict = {}
         self.nodeId_to_nodes_dict = {}
 
-    def parse_simplified_map_to_graph(self):
+    def parse_simplified_map_to_graph(self) -> Graph:
 
         with open(self.graph_file_path, "r") as simplified_graph_file:
             for line in simplified_graph_file:
@@ -43,9 +43,9 @@ class GraphParser:
 
     def populate_node_to_way_dict(self):
         map_parser = MapParser(self.map_file_path)
-        map_parser.parse_osm_map(self.nodeId_to_nodeInfo_dict)
+        map_parser.parse_osm_map_json(self.nodeId_to_nodeInfo_dict)
 
-    def calculate_weights(self):
+    def calculate_weights(self) -> Graph:
         graph = Graph()
         for node_id_0, node_id_1 in self.edge_to_weight_dict:
             weight = self.get_weight(node_id_0, node_id_1)
@@ -53,7 +53,7 @@ class GraphParser:
             graph.add_edge(node_id_1, node_id_0, weight)
         return graph
 
-    def get_weight(self, node_ids_0: str, node_ids_1: str):
+    def get_weight(self, node_ids_0: str, node_ids_1: str) -> float:
         ways_n0 = self.get_ways_for_nodes(node_ids_0)
         ways_n1 = self.get_ways_for_nodes(node_ids_1)
         # len(common_ways) can be > 1 if two or more ways are parallel to each other between two nodes.
@@ -69,16 +69,16 @@ class GraphParser:
         return weight
 
     @staticmethod
-    def get_first_node(node_ids: str):
+    def get_first_node(node_ids: str) -> str:
         return node_ids.split(NODE_SEPARATOR)[0]
 
-    def get_ways_for_nodes(self, node_ids: str):
+    def get_ways_for_nodes(self, node_ids: str) -> set:
         ways = set()
         for node_id in node_ids:
             ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
         return ways
 
-    def get_distance_for_nodes(self, node_id_0, node_id_1):
+    def get_distance_for_nodes(self, node_id_0, node_id_1) -> float:
         node_0 = self.nodeId_to_nodeInfo_dict[node_id_0]
         node_1 = self.nodeId_to_nodeInfo_dict[node_id_1]
 
@@ -87,7 +87,7 @@ class GraphParser:
 
         return haversine(coordinates_0, coordinates_1, unit=Unit.METERS)
 
-    def get_closest_node_id(self, coordinates: tuple[float, float]):
+    def get_closest_node_id(self, coordinates: tuple[float, float]) -> str:
         closest_node = None
         closest_distance = math.inf
         for node_id, node in self.nodeId_to_nodeInfo_dict.items():
@@ -101,6 +101,6 @@ class GraphParser:
         return closest_node
 
     @staticmethod
-    def make_frozenset(node_ids):
+    def make_frozenset(node_ids) -> frozenset:
         nodes_set = frozenset(node_ids.split(NODE_SEPARATOR))
         return nodes_set
