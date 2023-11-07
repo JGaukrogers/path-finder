@@ -45,6 +45,8 @@ def simplified_graph():
     parser.parse_simplified_map_to_graph()
     return parser
 
+# Tests for simple nodes #
+
 
 def test_shortest_distance_is_correct(dijkstra_ways_init_simple_node):
     assert 12 == dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_LONG)
@@ -58,7 +60,8 @@ def test_get_right_weight(dijkstra_ways_init_simple_node):
     assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_SHORT) == highway_types['residential']
 
 
-# Test for grouped nodes
+# Tests for grouped nodes #
+
 def test_composed_node_has_right_number_of_ways(simplified_graph):
     node0, node1 = COMPOSED_NODE_ID.split(graph_parser.NODE_SEPARATOR)
     assert len(simplified_graph.nodeId_to_nodeInfo_dict[node0].ways) == 2
