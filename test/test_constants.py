@@ -1,7 +1,7 @@
 from pathlib import Path
 
 resources_dir = Path(".") / 'resources'
-MOCK_GRAPH_FILE = str(resources_dir / 'ophois-graph.txt')
+MOCK_GRAPH_FILE = str(resources_dir / 'extracted-graph.txt')
 MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
 
 TEST_INIT_POINT_ID = '6845757797'
