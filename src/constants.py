@@ -3,7 +3,6 @@ from collections import namedtuple
 MapPoint = namedtuple('MapPoint', 'lat lon')
 
 EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{file_name}-extracted.graph'
-SIMPLE_GRAPH_FILENAME_TEMPLATE = EXTRACTED_GRAPH_FILENAME_TEMPLATE#'{file_name}-simplified.graph'
 OSM_FILENAME_TEMPLATE = '{file_name}.osm'
 
 OVERPASS_URL = 'https://overpass-api.de/api/interpreter'

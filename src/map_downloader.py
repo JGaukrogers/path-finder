@@ -10,7 +10,6 @@ class DataDownloader:
         self.area_boundaries = area_boundaries
         self.osm_file = constants.OSM_FILENAME_TEMPLATE.format(file_name=file_name)
         self.extracted_graph = constants.EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
-        self.simplified_graph = constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
 
     def get_simplified_graph(self):
         self.get_map_data()

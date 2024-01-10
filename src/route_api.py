@@ -36,7 +36,7 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     data_downloader = DataDownloader(file_name, area_boundaries)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
-        parser = GraphParser(graph_file_path=constants.SIMPLE_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
+        parser = GraphParser(graph_file_path=constants.EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
                              map_file_path=constants.OSM_FILENAME_TEMPLATE.format(file_name=file_name),
                              path_way_priority=path_way_priority)
         graph = parser.parse_simplified_map_to_graph()
@@ -60,13 +60,13 @@ def three_km_latitude():
 
 def three_km_longitude(latitude: float):
     # new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
-    r_earth = 6378 #km
+    r_earth = 6378  #km
     return (3 / r_earth) * (180 / math.pi) / math.cos(latitude * math.pi / 180)
 
 
 def get_area_boundaries(init_point: MapPoint[float], end_point: MapPoint[float]):
-    north = max(init_point.lat, end_point.lat)# - three_km_longitude(init_point.lat)
-    south = min(init_point.lat, end_point.lat)# + three_km_longitude(end_point.lat)
+    north = max(init_point.lat, end_point.lat)  # - three_km_longitude(init_point.lat)
+    south = min(init_point.lat, end_point.lat)  # + three_km_longitude(end_point.lat)
     east = max(init_point.lon, end_point.lon) + three_km_latitude()
     west = min(init_point.lon, end_point.lon) - three_km_latitude()
     area_boundaries = {'north': north, 'south': south, 'east': east, 'west': west}
