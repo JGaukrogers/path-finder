@@ -1,14 +1,12 @@
 # path-finder
 
 ## Tools
-- Ophois: https://github.com/ethicnology/ophois
 - Dijkstra library: https://pypi.org/project/dijkstra/
 - Overpass API
 
 ## How to install
 TBD
 - Setup a Flask server
-- Download Ophois and create a symbolic link
 
 ## Usage
 1. Open the site in a browser. 
@@ -25,15 +23,9 @@ Single test: pytest test/test_display_map.py::test_create_graph_one_edge
 
 All tests: pytest test/
 
-## Ophois usage example
-Execute following commands in the command shell:
+## Thanks
+Thank you to the project [Ophois](https://github.com/ethicnology/ophois). 
+Part of my code has been translated and adapted from it.
 
-```shell
-CITY=Taurinya
-
-ophois download --city $CITY
-
-cat $CITY.osm | ophois format | ophois extract > $CITY-extracted.graph
-
-cat $CITY-extracted.graph | ophois simplify --delta 10.0 > $CITY-simplified.graph
-```
+Also thank you so much to Bob from [PyBites](https://pybit.es/) for the excellent coaching, 
+thus helping me make this project possible.
