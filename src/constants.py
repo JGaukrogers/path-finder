@@ -12,7 +12,6 @@ way({s},{w},{n},{e})[highway];
 (._;>;);
 out body;
 '''
-COMMAND_REMOVE_FILES = ''#'rm {extracted_graph}'
 
 HTML_OUTFILE = '{file_name}.html'
 HTML_OUTPATH = 'src/templates/{file_name}.html'
