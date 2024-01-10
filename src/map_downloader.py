@@ -18,10 +18,6 @@ class DataDownloader:
         if self.is_ophois_available():
             self.get_map_data()
             extract_and_write_to_file(self.osm_file, self.extracted_graph)
-            subprocess.check_output(
-                constants.COMMAND_SIMPLIFY_GRAPH.format(extracted_graph=self.extracted_graph, ophois_path=self.ophois,
-                                                        simplified_graph=self.simplified_graph), shell=True)
-            subprocess.check_output(constants.COMMAND_REMOVE_FILES.format(extracted_graph=self.extracted_graph), shell=True)
 
         else:
             return False
