@@ -1,5 +1,4 @@
 import os
-from collections import namedtuple
 
 import math
 import time
@@ -7,6 +6,7 @@ import time
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
 
+from src.constants import MapPoint
 import src.constants as constants
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
@@ -15,8 +15,6 @@ from src.map_downloader import DataDownloader
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
-
-MapPoint = namedtuple('MapPoint', 'lat lon')
 
 
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
