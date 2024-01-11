@@ -1,6 +1,7 @@
 # path-finder
 
 ## Used Tools
+The most important tools and libraries used are:
 - [Flask](https://flask.palletsprojects.com/en/3.0.x/)
 - [Dijkstra library](https://pypi.org/project/dijkstra/)
 - Overpass API
@@ -9,7 +10,7 @@
 TBD
 - Setup a Flask server
 
-# Run server
+## Run server
 
 ```shell
 flask --app src/route_api run
@@ -36,7 +37,7 @@ You can also drag the start and end points to another position.
 ![usage_start.png](usage_start.png)
 ![usage_result.png](usage_result.png)
 
-## Thanks
+## Acknowledgements
 Thank you to the project [Ophois](https://github.com/ethicnology/ophois). 
 Part of my code has been translated and adapted from it.
 
