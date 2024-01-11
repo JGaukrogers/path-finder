@@ -1,7 +1,8 @@
 # path-finder
 
-## Tools
-- Dijkstra library: https://pypi.org/project/dijkstra/
+## Used Tools
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/)
+- [Dijkstra library](https://pypi.org/project/dijkstra/)
 - Overpass API
 
 ## How to install
