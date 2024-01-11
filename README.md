@@ -8,6 +8,23 @@
 TBD
 - Setup a Flask server
 
+# Run server
+
+```shell
+flask --app src/route_api run
+```
+
+## Run tests
+Single test:
+```shell
+pytest test/test_display_map.py::test_create_graph_one_edge
+```
+
+All tests:
+```shell
+pytest test/
+```
+
 ## Usage
 1. Open the site in a browser. 
 2. Scroll the Map to the position you want to get your way.
@@ -17,11 +34,6 @@ You can also drag the start and end points to another position.
 5. Click on _Submit_ to view the result.
 ![usage_start.png](usage_start.png)
 ![usage_result.png](usage_result.png)
-
-## Run tests
-Single test: pytest test/test_display_map.py::test_create_graph_one_edge
-
-All tests: pytest test/
 
 ## Thanks
 Thank you to the project [Ophois](https://github.com/ethicnology/ophois). 
