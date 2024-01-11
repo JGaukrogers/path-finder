@@ -53,7 +53,7 @@ class GraphParser:
             graph.add_edge(node_id_1, node_id_0, weight)
         return graph
 
-    def get_weight(self, node_ids_0: str, node_ids_1: str) -> float:
+    def get_weight(self, node_ids_0: frozenset, node_ids_1: frozenset) -> float:
         ways_n0 = self.get_ways_for_nodes(node_ids_0)
         ways_n1 = self.get_ways_for_nodes(node_ids_1)
         # len(common_ways) can be > 1 if two or more ways are parallel to each other between two nodes.
@@ -69,10 +69,11 @@ class GraphParser:
         return weight
 
     @staticmethod
-    def get_first_node(node_ids: str) -> str:
-        return node_ids.split(NODE_SEPARATOR)[0]
+    def get_first_node(node_ids: frozenset) -> str:
+        e, *_ = node_ids
+        return e
 
-    def get_ways_for_nodes(self, node_ids: str) -> set:
+    def get_ways_for_nodes(self, node_ids: frozenset) -> set:
         ways = set()
         for node_id in node_ids:
             ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
