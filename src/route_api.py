@@ -13,7 +13,6 @@ from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
 
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
@@ -36,8 +35,8 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     area_boundaries = get_area_boundaries(init_point, end_point)
 
     data_downloader = DataDownloader(file_name, area_boundaries)
-    graph_downloaded = data_downloader.get_extracted_graph()
-    if graph_downloaded:
+    is_graph_downloaded = data_downloader.download_graph_and_extract()
+    if is_graph_downloaded:
         parser = GraphParser(graph_file_path=EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
                              map_file_path=OSM_FILENAME_TEMPLATE.format(file_name=file_name),
                              path_way_priority=path_way_priority)

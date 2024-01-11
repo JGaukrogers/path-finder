@@ -4,6 +4,8 @@ resources_dir = Path(".") / 'resources'
 MOCK_GRAPH_FILE = str(resources_dir / 'extracted-graph.txt')
 MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
 
+TEST_VILLAGE = "Taurinya"
+
 TEST_INIT_POINT_ID = '6845757797'
 TEST_END_POINT_SHORT_ID = '6845757796'
 TEST_END_POINT_LONG_ID = '1238435933'
