@@ -5,10 +5,14 @@ import time
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
 
-from src.constants import MapPoint, EXTRACTED_GRAPH_FILENAME_TEMPLATE, OSM_FILENAME_TEMPLATE, HTML_OUTPATH, HTML_OUTFILE
+from src.constants import MapPoint, EXTRA_AREA_DISTANCE_IN_KM, \
+    EXTRACTED_GRAPH_FILENAME_TEMPLATE, OSM_FILENAME_TEMPLATE, \
+    HTML_OUTPATH, HTML_OUTFILE
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -53,13 +57,13 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
 def three_km_latitude():
     r_earth = 6378 #km
-    return (3 / r_earth) * (180 / math.pi)
+    return (EXTRA_AREA_DISTANCE_IN_KM / r_earth) * (180 / math.pi)
 
 
 def three_km_longitude(latitude: float):
     # new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
     r_earth = 6378  #km
-    return (3 / r_earth) * (180 / math.pi) / math.cos(latitude * math.pi / 180)
+    return (EXTRA_AREA_DISTANCE_IN_KM / r_earth) * (180 / math.pi) / math.cos(latitude * math.pi / 180)
 
 
 def get_area_boundaries(init_point: MapPoint[float], end_point: MapPoint[float]):

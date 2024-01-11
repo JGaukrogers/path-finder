@@ -1,6 +1,7 @@
 from collections import namedtuple
 
 MapPoint = namedtuple('MapPoint', 'lat lon')
+EXTRA_AREA_DISTANCE_IN_KM = 3
 
 EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{file_name}-extracted.graph'
 OSM_FILENAME_TEMPLATE = '{file_name}.osm'
