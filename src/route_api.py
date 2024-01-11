@@ -1,13 +1,11 @@
 import os
-
 import math
 import time
 
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
 
-from src.constants import MapPoint
-import src.constants as constants
+from src.constants import MapPoint, EXTRACTED_GRAPH_FILENAME_TEMPLATE, OSM_FILENAME_TEMPLATE, HTML_OUTPATH, HTML_OUTFILE
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from src.map_downloader import DataDownloader
@@ -36,8 +34,8 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     data_downloader = DataDownloader(file_name, area_boundaries)
     graph_downloaded = data_downloader.get_simplified_graph()
     if graph_downloaded:
-        parser = GraphParser(graph_file_path=constants.EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
-                             map_file_path=constants.OSM_FILENAME_TEMPLATE.format(file_name=file_name),
+        parser = GraphParser(graph_file_path=EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
+                             map_file_path=OSM_FILENAME_TEMPLATE.format(file_name=file_name),
                              path_way_priority=path_way_priority)
         graph = parser.parse_simplified_map_to_graph()
 
@@ -46,8 +44,8 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
         dijkstra = DijkstraSPF(graph, parser.nodeId_to_nodes_dict[init_point])
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
-        displayer.get_quietest_way(init_point, end_point, outfile_path=constants.HTML_OUTPATH.format(file_name=file_name))
-        return render_template(constants.HTML_OUTFILE.format(file_name=file_name))
+        displayer.get_quietest_way(init_point, end_point, outfile_path=HTML_OUTPATH.format(file_name=file_name))
+        return render_template(HTML_OUTFILE.format(file_name=file_name))
 
     else:
         return '<p>An error occurred</p>'
