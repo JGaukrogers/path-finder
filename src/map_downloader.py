@@ -11,7 +11,7 @@ class DataDownloader:
         self.osm_file = OSM_FILENAME_TEMPLATE.format(file_name=file_name)
         self.extracted_graph = EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
 
-    def get_simplified_graph(self) -> bool:
+    def get_extracted_graph(self) -> bool:
         if self.get_map_data():
             extract_and_write_to_file(self.osm_file, self.extracted_graph)
             return True
