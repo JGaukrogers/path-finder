@@ -20,18 +20,12 @@ messages = []
 
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
 def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
-    # TODO: check that the result is a tuple of floats!
     # TODO: show proper error page if not tuple of floats
     test_timestamp = time.time_ns()
     file_name = str(test_timestamp)
-    init_point_lat = float(init_point_lat)
-    init_point_lon = float(init_point_lon)
-    end_point_lat = float(end_point_lat)
-    end_point_lon = float(end_point_lon)
 
-    init_point = MapPoint(init_point_lat, init_point_lon)
-    end_point = MapPoint(end_point_lat, end_point_lon)
-
+    init_point = convert_lat_lon_to_mappoint(init_point_lat, init_point_lon)
+    end_point = convert_lat_lon_to_mappoint(end_point_lat, end_point_lon)
     area_boundaries = get_area_boundaries(init_point, end_point)
 
     data_downloader = DataDownloader(file_name, area_boundaries)
