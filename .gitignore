@@ -134,6 +134,3 @@ dmypy.json
 #/src/templates/*.html
 *.osm
 *.graph
-
-degrees_simplify=10
-order_size_simplify=10
