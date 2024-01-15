@@ -1,7 +1,8 @@
 from collections import namedtuple
 
 MapPoint = namedtuple('MapPoint', 'lat lon')
-EXTRA_AREA_DISTANCE_IN_KM = 3
+RADIUS_EARTH = 6378 #km
+EXTRA_AREA_DISTANCE_IN_KM = 0.5
 
 OVERPASS_URL = 'https://overpass-api.de/api/interpreter'
 OVERPASS_QUERY = '''
