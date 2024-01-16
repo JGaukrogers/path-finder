@@ -20,9 +20,7 @@ messages = []
 
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
 def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
-    # TODO: show proper error page if not tuple of floats
-    test_timestamp = time.time_ns()
-    file_name = str(test_timestamp)
+    file_name = str(time.time_ns())
 
     init_point = convert_lat_lon_to_mappoint(init_point_lat, init_point_lon)
     end_point = convert_lat_lon_to_mappoint(end_point_lat, end_point_lon)
@@ -59,7 +57,6 @@ def three_km_latitude():
 
 
 def three_km_longitude(latitude: float):
-    # new_longitude = longitude + (dx / r_earth) * (180 / pi) / cos(latitude * pi/180);
     return (EXTRA_AREA_DISTANCE_IN_KM / RADIUS_EARTH) * (180 / math.pi) / math.cos(latitude * math.pi / 180)
 
 
