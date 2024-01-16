@@ -26,7 +26,7 @@ class MapDisplayer:
         nodes_group = self.graph_parser.nodeId_to_nodes_dict[end_node_id]
         trail_coordinates = self.get_trail_coordinates(self.dijkstra.get_path(nodes_group))
 
-        folium.PolyLine(trail_coordinates, tooltip='Coast').add_to(map)
+        folium.PolyLine(trail_coordinates).add_to(map)
 
         map.save(outfile_path)
 
