@@ -94,4 +94,4 @@ def index():
                                     end_point_lat=end_marker[0], end_point_lon=end_marker[1],
                                     path_way_priority=path_way_priority))
 
-    return render_template('map.html')
+    return render_template('content.html')

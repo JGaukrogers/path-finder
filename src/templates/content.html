@@ -1,0 +1,95 @@
+{% extends "index.html" %}
+
+{% block map %}
+<div id="map" style="width: 600px; height: 400px;">
+</div>
+<!--<button onclick="resetMap()">Reset map</button>-->
+
+<script>
+
+	const map = L.map('map').setView([52.50177658227, 13.40902805328], 16);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	var markers = {}
+
+	function onMapClick(e) {
+        if (typeof markers["start_marker"] == "undefined") {
+	        var start_marker = L.marker(e.latlng, {draggable:'true', title:'start point'}).addTo(map);
+	        start_marker.bindPopup("Start point").openPopup();
+	        markers["start_marker"] = start_marker;
+	    }
+	    else if (typeof markers["end_marker"] == "undefined") {
+	        var end_marker = L.marker(e.latlng, {draggable:'true', title:'end point'}).addTo(map);
+	        end_marker.bindPopup("End point").openPopup();
+	        markers["end_marker"] = end_marker;
+	    }
+    }
+
+    map.on('click', onMapClick);
+
+    function resetMap(){
+        if (map.hasLayer(markers["start_marker"])) {
+            map.removeLayer(markers["start_marker"]);
+        }
+    }
+
+
+</script>
+{% endblock %}
+
+{% block form_options %}
+<br/>
+<table>
+    <tr>
+        <td>
+            <label>Path Priority</label>
+            <br>
+            <input type="radio" id="quietness" name="path_way_priority" value="quietness" checked>
+            <label for="quietness">quietness</label><br>
+            <input type="radio" id="distance" name="path_way_priority" value="distance">
+            <label for="distance">distance</label><br>
+        </td>
+    </tr>
+
+</table>
+<button type="button" onclick="get_path()">Submit</button>
+
+<script>
+        function get_path(){
+
+            if (!markers["start_marker"]) {
+                alert("Start marker not set");
+                return;
+            }
+            if (!markers["end_marker"]) {
+                alert("End marker not set");
+                return;
+            }
+
+            var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
+            var start_marker = markers["start_marker"].getLatLng();
+            var end_marker = markers["end_marker"].getLatLng();
+
+            window.open("/get_route/"
+            + start_marker["lat"] + "/"
+            + start_marker["lng"] + "/"
+            + end_marker["lat"] + "/"
+            + end_marker["lng"] + "/"
+            + path_way_priority).focus();
+
+        }
+
+</script>
+{% endblock %}
+
+{% block instructions %}
+
+<h1>How to use</h1>
+
+<p>Blah</p>
+
+{% endblock %}
