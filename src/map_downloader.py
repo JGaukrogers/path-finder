@@ -1,12 +1,14 @@
 import requests
 
-from src.constants import OSM_FILENAME_TEMPLATE, EXTRACTED_GRAPH_FILENAME_TEMPLATE, OVERPASS_QUERY, OVERPASS_URL
+from src.constants import OSM_FILENAME_TEMPLATE, EXTRACTED_GRAPH_FILENAME_TEMPLATE, \
+    OVERPASS_QUERY, OVERPASS_URL, \
+    AreaBoundaries
 from src.format import extract_and_write_to_file
 
 
 class DataDownloader:
 
-    def __init__(self, file_name: str, area_boundaries: dict):
+    def __init__(self, file_name: str, area_boundaries: AreaBoundaries):
         self.area_boundaries = area_boundaries
         self.osm_file = OSM_FILENAME_TEMPLATE.format(file_name=file_name)
         self.extracted_graph = EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
@@ -18,10 +20,10 @@ class DataDownloader:
         return False
 
     def get_map_data(self) -> bool:
-        overpass_query = OVERPASS_QUERY.format(n=self.area_boundaries['north'],
-                                               s=self.area_boundaries['south'],
-                                               e=self.area_boundaries['east'],
-                                               w=self.area_boundaries['west'])
+        overpass_query = OVERPASS_QUERY.format(n=self.area_boundaries.north,
+                                               s=self.area_boundaries.south,
+                                               e=self.area_boundaries.east,
+                                               w=self.area_boundaries.west)
         try:
             response = requests.get(OVERPASS_URL, params={'data': overpass_query})
         except requests.RequestException | requests.ConnectionError | requests.HTTPError | requests.Timeout:

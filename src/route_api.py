@@ -5,7 +5,8 @@ import time
 from dijkstra import DijkstraSPF
 from flask import Flask, render_template, request, url_for, flash, redirect
 
-from src.constants import MapPoint, EXTRA_AREA_DISTANCE_IN_KM, RADIUS_EARTH, \
+from src.constants import MapPoint, AreaBoundaries, \
+    EXTRA_AREA_DISTANCE_IN_KM, RADIUS_EARTH, \
     EXTRACTED_GRAPH_FILENAME_TEMPLATE, OSM_FILENAME_TEMPLATE, \
     HTML_OUTPATH, HTML_OUTFILE
 from src.display_map import MapDisplayer
@@ -60,14 +61,14 @@ def three_km_longitude(latitude: float):
     return (EXTRA_AREA_DISTANCE_IN_KM / RADIUS_EARTH) * (180 / math.pi) / math.cos(latitude * math.pi / 180)
 
 
-def get_area_boundaries(init_point: MapPoint[float], end_point: MapPoint[float]):
+def get_area_boundaries(init_point: MapPoint[float], end_point: MapPoint[float]) -> AreaBoundaries:
     north = max(init_point.lat, end_point.lat)
     south = min(init_point.lat, end_point.lat)
     north += three_km_longitude(north)
     south -= three_km_longitude(south)
     east = max(init_point.lon, end_point.lon) + three_km_latitude()
     west = min(init_point.lon, end_point.lon) - three_km_latitude()
-    area_boundaries = {'north': north, 'south': south, 'east': east, 'west': west}
+    area_boundaries = AreaBoundaries(north=north, south=south, east=east, west=west)
 
     return area_boundaries
 

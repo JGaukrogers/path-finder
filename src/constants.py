@@ -1,6 +1,7 @@
 from collections import namedtuple
 
 MapPoint = namedtuple('MapPoint', 'lat lon')
+AreaBoundaries = namedtuple('AreaBoundaries', 'north south east west')
 RADIUS_EARTH = 6378 #km
 EXTRA_AREA_DISTANCE_IN_KM = 0.5
 
