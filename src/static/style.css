@@ -1,0 +1,14 @@
+.static_image {
+  width: 300px;
+  height: auto;
+  border: solid 2px lightskyblue;
+}
+
+.image_list {
+  list-style-type: none;
+}
+
+.map {
+  width: 600px;
+  height: 400px;
+}
