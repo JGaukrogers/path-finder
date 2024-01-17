@@ -2,6 +2,11 @@ html, body {
     height: 100%;
     margin: 0;
 }
+
+.image_list {
+    list-style-type: none;
+}
+
 .leaflet-container {
     height: 400px;
     width: 600px;
@@ -9,17 +14,13 @@ html, body {
     max-height: 100%;
 }
 
+.map {
+    width: 600px;
+    height: 400px;
+}
+
 .static_image {
     width: 300px;
     height: auto;
     border: solid 2px lightskyblue;
-}
-
-.image_list {
-    list-style-type: none;
-}
-
-.map {
-    width: 600px;
-    height: 400px;
 }

@@ -37,7 +37,6 @@
         }
     }
 
-
 </script>
 {% endblock %}
 
@@ -54,36 +53,36 @@
             <label for="distance">distance</label><br>
         </td>
     </tr>
-
 </table>
+
 <button type="button" onclick="get_path()">Submit</button>
 
 <script>
-        function get_path(){
+    function get_path(){
+        if (!markers["start_marker"]) {
+            alert("Start marker not set");
+            return;
+        }
+        if (!markers["end_marker"]) {
+            alert("End marker not set");
+            return;
+        }
 
-            if (!markers["start_marker"]) {
-                alert("Start marker not set");
-                return;
-            }
-            if (!markers["end_marker"]) {
-                alert("End marker not set");
-                return;
-            }
+        var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
+        var start_marker = markers["start_marker"].getLatLng();
+        var end_marker = markers["end_marker"].getLatLng();
 
-            var path_way_priority = document.querySelector('input[name="path_way_priority"]:checked').value;
-            var start_marker = markers["start_marker"].getLatLng();
-            var end_marker = markers["end_marker"].getLatLng();
-
-            window.open("/get_route/"
+        window.open("/get_route/"
             + start_marker["lat"] + "/"
             + start_marker["lng"] + "/"
             + end_marker["lat"] + "/"
             + end_marker["lng"] + "/"
             + path_way_priority).focus();
 
-        }
+    }
 
 </script>
+
 {% endblock %}
 
 {% block instructions %}
@@ -92,7 +91,8 @@
 <ol>
     <li>Scroll the Map to the position you want to get your way.</li>
     <li>Click two points on the map, where you want to have your start and end point.<br/>
-        You can also drag the start and end points to another position.</li>
+        You can also drag the start and end points to another position.
+    </li>
     <li>On <i>Path Priority</i>, select if you want the quietest path or the shortest one.</li>
     <li>Click on <i>Submit</i> to view the result.</li>
 </ol>
@@ -100,18 +100,20 @@
 <ul class="image_list">
     <li>
         <a href="static/usage_start.png" target="_blank">
-        <img class="static_image"
-             alt="Image of a map. On the map there are two markers. On one of them you can read 'End Point'"
-             title="Before clicking on submit, you have to select the points between you want to have your way."
-             src="static/usage_start.png"/>
+            <img class="static_image"
+                 alt="Image of a map. On the map there are two markers. On one of them you can read 'End Point'"
+                 title="Before clicking on submit, you have to select the points between you want to have your way."
+                 src="static/usage_start.png"
+            />
         </a>
     </li>
     <li>
         <a href="static/usage_result.png" target="_blank">
-        <img class="static_image"
-             alt="Image of the previous map. There are two markers, and between those a path is drawn."
-             title="You will get a way according to the properties you selected."
-             src="static/usage_result.png"/>
+            <img class="static_image"
+                 alt="Image of the previous map. There are two markers, and between those a path is drawn."
+                 title="You will get a way according to the properties you selected."
+                 src="static/usage_result.png"
+            />
         </a>
     </li>
 </ul>
