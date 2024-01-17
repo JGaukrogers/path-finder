@@ -134,3 +134,5 @@ dmypy.json
 #/src/templates/*.html
 *.osm
 *.graph
+index_long.html
+index_short.html
