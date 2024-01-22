@@ -24,8 +24,7 @@ EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{file_name}-extracted.graph'
 OSM_FILENAME_TEMPLATE = '{file_name}.osm'
 HTML_OUTFILE = '{file_name}.html'
 
-HOME = os.environ['PF_HOME']
-HTML_OUTPATH = HOME + 'src/templates/{file_name}.html'
+HTML_OUTPATH = PF_HOME + 'src/templates/{file_name}.html'
 
 PRIORITY_QUIETNESS = 'quietness'
 PRIORITY_SHORT_DISTANCE = 'distance'
