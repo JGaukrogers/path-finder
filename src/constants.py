@@ -18,12 +18,13 @@ out body;
 
 dotenv_path = Path('.env')
 load_dotenv(dotenv_path=dotenv_path)
-PF_HOME = os.environ['PF_HOME']
+DOWNLOADS_HOME = Path(os.environ['PF_HOME']) / 'downloads/'
+TEMPLATES_HOME = Path(os.environ['PF_HOME']) / 'src/templates/'
 
-EXTRACTED_GRAPH_FILENAME_TEMPLATE = PF_HOME + '{file_name}-extracted.graph'
-OSM_FILENAME_TEMPLATE = PF_HOME + '{file_name}.osm'
+EXTRACTED_GRAPH_FILENAME_TEMPLATE = str(DOWNLOADS_HOME / '{file_name}-extracted.graph')
+OSM_FILENAME_TEMPLATE = str(DOWNLOADS_HOME / '{file_name}.osm')
 HTML_OUTFILE = '{file_name}.html'
-HTML_OUTPATH = PF_HOME + 'src/templates/{file_name}.html'
+HTML_OUTPATH = str(TEMPLATES_HOME / '{file_name}.html')
 
 PRIORITY_QUIETNESS = 'quietness'
 PRIORITY_SHORT_DISTANCE = 'distance'
