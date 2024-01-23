@@ -20,10 +20,9 @@ dotenv_path = Path('.env')
 load_dotenv(dotenv_path=dotenv_path)
 PF_HOME = os.environ['PF_HOME']
 
-EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{file_name}-extracted.graph'
-OSM_FILENAME_TEMPLATE = '{file_name}.osm'
+EXTRACTED_GRAPH_FILENAME_TEMPLATE = PF_HOME + '{file_name}-extracted.graph'
+OSM_FILENAME_TEMPLATE = PF_HOME + '{file_name}.osm'
 HTML_OUTFILE = '{file_name}.html'
-
 HTML_OUTPATH = PF_HOME + 'src/templates/{file_name}.html'
 
 PRIORITY_QUIETNESS = 'quietness'
