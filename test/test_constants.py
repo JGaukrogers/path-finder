@@ -1,8 +1,12 @@
 from pathlib import Path
 
+from src.constants import TEMPLATES_HOME
+
 resources_dir = Path(".") / 'resources'
 MOCK_GRAPH_FILE = str(resources_dir / 'extracted-graph.txt')
 MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
+INDEX_LONG_HTML = str(TEMPLATES_HOME / 'index_long.html')
+INDEX_SHORT_HTML = str(TEMPLATES_HOME / 'index_short.html')
 
 TEST_VILLAGE = "Taurinya"
 
