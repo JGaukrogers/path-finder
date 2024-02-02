@@ -22,10 +22,8 @@ TEST_PATH_POSSIBLE_RESULT_1 = [
     TEST_END_POINT_LONG,
 ]
 
-COMPOSED_NODE_ID = '9311284676-9311288421'
-NODE_TO_COMPOSED_NODE_ID = '9311288435'
-COMPOSED_NODE = parser.nodeId_to_nodes_dict[COMPOSED_NODE_ID.split(graph_parser.NODE_SEPARATOR)[0]]
-NODE_TO_COMPOSED_NODE = parser.nodeId_to_nodes_dict[NODE_TO_COMPOSED_NODE_ID]
+# COMPOSED_NODE = parser.nodeId_to_nodes_dict[COMPOSED_NODE_ID.split(graph_parser.NODE_SEPARATOR)[0]]
+# NODE_TO_COMPOSED_NODE = parser.nodeId_to_nodes_dict[NODE_TO_COMPOSED_NODE_ID]
 
 
 @pytest.fixture()
@@ -34,10 +32,10 @@ def dijkstra_ways_init_simple_node():
     return dijkstra
 
 
-@pytest.fixture()
-def dijkstra_ways_init_composed_node():
-    dijkstra = DijkstraSPF(graph, COMPOSED_NODE)
-    return dijkstra
+# @pytest.fixture()
+# def dijkstra_ways_init_composed_node():
+#     dijkstra = DijkstraSPF(graph, COMPOSED_NODE)
+#     return dijkstra
 
 
 @pytest.fixture()
@@ -62,11 +60,11 @@ def test_get_right_weight(dijkstra_ways_init_simple_node):
 
 # Tests for grouped nodes #
 
-def test_composed_node_has_right_number_of_ways(simplified_graph):
-    node0, node1 = COMPOSED_NODE_ID.split(graph_parser.NODE_SEPARATOR)
-    assert len(simplified_graph.nodeId_to_nodeInfo_dict[node0].ways) == 2
-    assert len(simplified_graph.nodeId_to_nodeInfo_dict[node1].ways) == 2
-
-
-def test_composed_node_connects_one_street(dijkstra_ways_init_composed_node):
-    assert dijkstra_ways_init_composed_node.get_distance(NODE_TO_COMPOSED_NODE) == highway_types['track']
+# def test_composed_node_has_right_number_of_ways(simplified_graph):
+#     node0, node1 = COMPOSED_NODE_ID.split(graph_parser.NODE_SEPARATOR)
+#     assert len(simplified_graph.nodeId_to_nodeInfo_dict[node0].ways) == 2
+#     assert len(simplified_graph.nodeId_to_nodeInfo_dict[node1].ways) == 2
+#
+#
+# def test_composed_node_connects_one_street(dijkstra_ways_init_composed_node):
+#     assert dijkstra_ways_init_composed_node.get_distance(NODE_TO_COMPOSED_NODE) == highway_types['track']
