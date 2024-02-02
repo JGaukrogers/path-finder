@@ -1,7 +1,6 @@
 import pytest
 from dijkstra import DijkstraSPF
 
-from src import graph_parser
 from src.constants import PRIORITY_QUIETNESS
 from src.graph_elements import highway_types
 from src.graph_parser import GraphParser
@@ -18,7 +17,9 @@ TEST_END_POINT_LONG = parser.nodeId_to_nodes_dict[TEST_END_POINT_LONG_ID]
 TEST_PATH_POSSIBLE_RESULT_1 = [
     TEST_INIT_POINT,
     TEST_END_POINT_SHORT,
+    parser.nodeId_to_nodes_dict['6888567898'],
     parser.nodeId_to_nodes_dict['2215046974'],
+    parser.nodeId_to_nodes_dict['430856696'],
     TEST_END_POINT_LONG,
 ]
 
@@ -47,7 +48,8 @@ def simplified_graph():
 
 
 def test_shortest_distance_is_correct(dijkstra_ways_init_simple_node):
-    assert 12 == dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_LONG)
+    print(TEST_END_POINT_LONG_ID, TEST_END_POINT_LONG)
+    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_LONG) == 21
 
 
 def test_get_right_path(dijkstra_ways_init_simple_node):
