@@ -40,8 +40,8 @@ class MapDisplayer:
     def get_trail_coordinates(self, node_list):
         trail_coordinates = []
         for path_points in node_list:
-            lat = self.graph_parser.nodeId_to_nodeInfo_dict[set(path_points).pop()].lat
-            lon = self.graph_parser.nodeId_to_nodeInfo_dict[set(path_points).pop()].lon
+            lat = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lat
+            lon = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lon
             # TODO: make namedtuple
             trail_coordinates.append((lat, lon))
         return trail_coordinates
