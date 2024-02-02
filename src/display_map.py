@@ -23,8 +23,7 @@ class MapDisplayer:
         folium.Marker(start_node_coords, popup='Start').add_to(map)
         folium.Marker(end_node_coords, popup='End').add_to(map)
 
-        nodes_group = self.graph_parser.nodeId_to_nodes_dict[end_node_id]
-        trail_coordinates = self.get_trail_coordinates(self.dijkstra.get_path(nodes_group))
+        trail_coordinates = self.get_trail_coordinates(self.dijkstra.get_path(end_node_id))
 
         folium.PolyLine(trail_coordinates).add_to(map)
 

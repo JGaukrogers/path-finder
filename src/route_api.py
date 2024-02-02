@@ -38,7 +38,7 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
         init_point = parser.get_closest_node_id(init_point)
         end_point = parser.get_closest_node_id(end_point)
 
-        dijkstra = DijkstraSPF(graph, parser.nodeId_to_nodes_dict[init_point])
+        dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
         displayer.get_quietest_way(init_point, end_point, outfile_path=HTML_OUTPATH.format(file_name=file_name))
         return render_template(HTML_OUTFILE.format(file_name=file_name))

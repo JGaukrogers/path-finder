@@ -19,7 +19,6 @@ class GraphParser:
         self.path_way_priority = path_way_priority
         self.nodeId_to_nodeInfo_dict = {}
         self.edge_to_weight_dict = {}
-        self.nodeId_to_nodes_dict = {}
 
     def parse_simplified_map_to_graph(self) -> Graph:
 
@@ -31,7 +30,6 @@ class GraphParser:
                     node_ids = fields[0]
                     for node_id in node_ids.split(NODE_SEPARATOR):
                         self.nodeId_to_nodeInfo_dict[node_id] = NodeInfo()
-                        self.nodeId_to_nodes_dict[node_id] = node_ids
 
                 elif len(fields) == 2:
                     node_ids_0, node_ids_1 = fields

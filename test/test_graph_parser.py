@@ -10,21 +10,19 @@ from test.test_constants import TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, TES
 parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
 graph = parser.parse_simplified_map_to_graph()
 
-TEST_INIT_POINT = parser.nodeId_to_nodes_dict[TEST_INIT_POINT_ID]
-
 TEST_PATH_POSSIBLE_RESULT_1 = [
-    TEST_INIT_POINT,
+    TEST_INIT_POINT_ID,
     TEST_END_POINT_SHORT_ID,
-    parser.nodeId_to_nodes_dict['6888567898'],
-    parser.nodeId_to_nodes_dict['2215046974'],
-    parser.nodeId_to_nodes_dict['430856696'],
+    '6888567898',
+    '2215046974',
+    '430856696',
     TEST_END_POINT_LONG_ID,
 ]
 
 
 @pytest.fixture()
 def dijkstra_ways_init_simple_node():
-    dijkstra = DijkstraSPF(graph, TEST_INIT_POINT)
+    dijkstra = DijkstraSPF(graph, TEST_INIT_POINT_ID)
     return dijkstra
 
 
