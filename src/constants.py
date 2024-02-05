@@ -18,8 +18,6 @@ way({s},{w},{n},{e})[highway];
 out body;
 '''
 
-EXTRACTED_GRAPH_FILENAME_TEMPLATE = '{file_name}-extracted.graph'
-OSM_FILENAME_TEMPLATE = '{file_name}.osm'
 HTML_OUTFILE = '{file_name}.html'
 HTML_OUTPATH = 'src/templates/{file_name}.html'
 
