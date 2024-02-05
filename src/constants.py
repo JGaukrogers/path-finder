@@ -1,5 +1,10 @@
 from collections import namedtuple
 
+DEFAULT_HTML_OUTFILE = 'index.html'
+ZOOM_START = 17
+
+SEPARATOR = '␟'
+
 MapPoint = namedtuple('MapPoint', 'lat lon')
 AreaBoundaries = namedtuple('AreaBoundaries', 'north south east west')
 RADIUS_EARTH = 6378 #km

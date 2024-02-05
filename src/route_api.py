@@ -11,7 +11,7 @@ from src.constants import MapPoint, AreaBoundaries, \
     HTML_OUTPATH, HTML_OUTFILE
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
-from src.map_downloader import DataDownloader
+from src.data_downloader import DataDownloader
 
 
 app = Flask(__name__)
@@ -31,9 +31,9 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     is_graph_downloaded = data_downloader.download_graph_and_extract()
     if is_graph_downloaded:
         parser = GraphParser(graph_file_path=EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
-                             map_file_path=OSM_FILENAME_TEMPLATE.format(file_name=file_name),
+                             downloaded_map_info=data_downloader.osm_data,
                              path_way_priority=path_way_priority)
-        graph = parser.parse_simplified_map_to_graph()
+        graph = parser.parse_map_to_graph()
 
         init_point = parser.get_closest_node_id(init_point)
         end_point = parser.get_closest_node_id(end_point)

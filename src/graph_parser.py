@@ -1,35 +1,31 @@
+import json
 import math
 
 from dijkstra import Graph
 
-from src.constants import PRIORITY_QUIETNESS, PRIORITY_SHORT_DISTANCE
+from src.constants import PRIORITY_QUIETNESS, PRIORITY_SHORT_DISTANCE, SEPARATOR
 from src.map_parser import MapParser
 from src.graph_elements import NodeInfo
 from haversine import haversine, Unit
 
-SEPARATOR = '␟'
-NODE_SEPARATOR = '-'
-
 
 class GraphParser:
 
-    def __init__(self, graph_file_path: str, map_file_path: str, path_way_priority: str):
+    def __init__(self, graph_file_path: str, downloaded_map_info: json, path_way_priority: str):
         self.graph_file_path = graph_file_path
-        self.map_file_path = map_file_path
+        self.map_file_path = downloaded_map_info
         self.path_way_priority = path_way_priority
         self.nodeId_to_nodeInfo_dict = {}
         self.edge_to_weight_dict = {}
 
-    def parse_simplified_map_to_graph(self) -> Graph:
-
+    def parse_map_to_graph(self) -> Graph:
         with open(self.graph_file_path, "r") as simplified_graph_file:
             for line in simplified_graph_file:
                 line = line.strip()
                 fields = line.split(SEPARATOR)
                 if len(fields) == 3:
-                    node_ids = fields[0]
-                    for node_id in node_ids.split(NODE_SEPARATOR):
-                        self.nodeId_to_nodeInfo_dict[node_id] = NodeInfo()
+                    node_id = fields[0]
+                    self.nodeId_to_nodeInfo_dict[node_id] = NodeInfo()
 
                 elif len(fields) == 2:
                     node_ids_0, node_ids_1 = fields

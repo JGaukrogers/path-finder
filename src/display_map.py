@@ -1,11 +1,8 @@
 import folium
 from dijkstra import DijkstraSPF
 
+from src.constants import DEFAULT_HTML_OUTFILE, ZOOM_START
 from src.graph_parser import GraphParser
-
-DEFAULT_HTML_OUTFILE = 'index.html'
-
-ZOOM_START = 17
 
 
 class MapDisplayer:
@@ -29,8 +26,8 @@ class MapDisplayer:
 
         map.save(outfile_path)
 
-    def get_node_coordinates(self, start_node_id):
-        start_node_info = self.graph_parser.nodeId_to_nodeInfo_dict[start_node_id]
+    def get_node_coordinates(self, node_id):
+        start_node_info = self.graph_parser.nodeId_to_nodeInfo_dict[node_id]
         lat = start_node_info.lat
         lon = start_node_info.lon
         start_node_coords = [lat, lon]
