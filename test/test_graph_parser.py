@@ -42,3 +42,8 @@ def test_get_right_path(dijkstra_ways_init_simple_node):
 
 def test_get_right_weight(dijkstra_ways_init_simple_node):
     assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_SHORT_ID) == highway_types['residential']
+
+
+def test_populate_note_to_info_dict(simplified_graph):
+    assert len(simplified_graph.nodeId_to_nodeInfo_dict[TEST_INIT_POINT_ID].ways) == 1
+    assert len(simplified_graph.nodeId_to_nodeInfo_dict[TEST_END_POINT_SHORT_ID].ways) == 2

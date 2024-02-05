@@ -19,8 +19,6 @@ messages = []
 
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
 def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
-    file_name = str(time.time_ns())
-
     init_point = convert_lat_lon_to_mappoint(init_point_lat, init_point_lon)
     end_point = convert_lat_lon_to_mappoint(end_point_lat, end_point_lon)
     area_boundaries = get_area_boundaries(init_point, end_point)
@@ -38,9 +36,10 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
 
         dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
-        displayer.get_quietest_way(init_point, end_point, outfile_path=HTML_OUTPATH.format(file_name=file_name))
-        return render_template(HTML_OUTFILE.format(file_name=file_name))
 
+        file_name = str(time.time_ns())
+        displayer.generate_map(init_point, end_point, outfile_path=HTML_OUTPATH.format(file_name=file_name))
+        return render_template(HTML_OUTFILE.format(file_name=file_name))
     else:
         return '<p>An error occurred</p>'
 

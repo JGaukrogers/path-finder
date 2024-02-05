@@ -20,8 +20,8 @@ def map_displayer():
 
 
 def test_create_graph_one_edge(map_displayer):
-    map_displayer.get_quietest_way(TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, 'index_short.html')
+    map_displayer.generate_map(TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, 'index_short.html')
 
 
 def test_create_graph_four_edges(map_displayer):
-    map_displayer.get_quietest_way(TEST_INIT_POINT_ID, TEST_END_POINT_LONG_ID, 'index_long.html')
+    map_displayer.generate_map(TEST_INIT_POINT_ID, TEST_END_POINT_LONG_ID, 'index_long.html')

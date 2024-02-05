@@ -11,7 +11,7 @@ class MapDisplayer:
         self.graph_parser = graph_parser
         self.dijkstra = dijkstra
 
-    def get_quietest_way(self, start_node_id: str, end_node_id: str, outfile_path=DEFAULT_HTML_OUTFILE):
+    def generate_map(self, start_node_id: str, end_node_id: str, outfile_path=DEFAULT_HTML_OUTFILE):
         start_node_coords = self.get_node_coordinates(start_node_id)
         end_node_coords = self.get_node_coordinates(end_node_id)
 

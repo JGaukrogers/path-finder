@@ -4,7 +4,7 @@ import requests
 
 from src.constants import OVERPASS_QUERY, OVERPASS_URL, \
     AreaBoundaries
-from src.format import extract_osm_to_graph
+from src.osm_to_graph_converter import extract_osm_to_graph
 
 
 class DataDownloader:

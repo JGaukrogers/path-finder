@@ -2,18 +2,17 @@ import json
 import math
 
 from dijkstra import Graph
+from haversine import haversine, Unit
 
 from src.constants import PRIORITY_QUIETNESS, PRIORITY_SHORT_DISTANCE, SEPARATOR
-from src.map_parser import MapParser
-from src.graph_elements import NodeInfo
-from haversine import haversine, Unit
+from src.graph_elements import NodeInfo, Way
 
 
 class GraphParser:
 
     def __init__(self, map_graph: str, downloaded_map_info: json, path_way_priority: str):
         self.map_graph = map_graph
-        self.map_file_path = downloaded_map_info
+        self.downloaded_map_info = downloaded_map_info
         self.path_way_priority = path_way_priority
         self.nodeId_to_nodeInfo_dict = {}
         self.edge_to_weight_dict = {}
@@ -30,15 +29,25 @@ class GraphParser:
                 node_ids_0, node_ids_1 = fields
                 self.edge_to_weight_dict[(node_ids_0, node_ids_1)] = None
 
-        self.populate_node_to_way_dict()
-        graph = self.calculate_weights()
+        self.populate_node_to_nodeInfo_dict()
+        graph = self.create_weighted_graph()
         return graph
 
-    def populate_node_to_way_dict(self):
-        map_parser = MapParser(self.map_file_path)
-        map_parser.parse_osm_map_json(self.nodeId_to_nodeInfo_dict)
+    def populate_node_to_nodeInfo_dict(self):
+        for element in self.downloaded_map_info['elements']:
+            if element['type'] == 'node':
+                node_id = str(element['id'])
+                if node_id in self.nodeId_to_nodeInfo_dict:
+                    self.nodeId_to_nodeInfo_dict[node_id].lat = float(element['lat'])
+                    self.nodeId_to_nodeInfo_dict[node_id].lon = float(element['lon'])
+            if element['type'] == 'way':
+                node_list = element['nodes']
+                node_list = [str(node) for node in node_list]
+                for node_value in node_list:
+                    if node_value in self.nodeId_to_nodeInfo_dict:
+                        self.nodeId_to_nodeInfo_dict[node_value].ways.add(Way(element))
 
-    def calculate_weights(self) -> Graph:
+    def create_weighted_graph(self) -> Graph:
         graph = Graph()
         for node_id_0, node_id_1 in self.edge_to_weight_dict:
             weight = self.get_weight(node_id_0, node_id_1)
