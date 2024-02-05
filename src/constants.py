@@ -23,7 +23,6 @@ out body;
 
 dotenv_path = Path('.env')
 load_dotenv(dotenv_path=dotenv_path)
-DOWNLOADS_HOME = Path(os.environ['PF_HOME']) / 'downloads/'
 TEMPLATES_HOME = Path(os.environ['PF_HOME']) / 'src/templates/'
 
 HTML_OUTFILE = '{file_name}.html'
