@@ -1,8 +1,11 @@
+import json
 from pathlib import Path
 
 resources_dir = Path(".") / 'resources'
 MOCK_GRAPH_FILE = str(resources_dir / 'extracted-graph.txt')
 MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
+with open(MOCK_MAP_FILE) as fd:
+    MOCK_MAP_CONTENT = json.load(fd)
 
 TEST_VILLAGE = "Taurinya"
 

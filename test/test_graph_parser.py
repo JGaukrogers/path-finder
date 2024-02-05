@@ -5,10 +5,10 @@ from src.constants import PRIORITY_QUIETNESS
 from src.graph_elements import highway_types
 from src.graph_parser import GraphParser
 from test.test_constants import TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, TEST_END_POINT_LONG_ID, \
-    MOCK_GRAPH_FILE, MOCK_MAP_FILE
+    MOCK_GRAPH_FILE, MOCK_MAP_CONTENT
 
-parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
-graph = parser.parse_simplified_map_to_graph()
+parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_CONTENT, PRIORITY_QUIETNESS)
+graph = parser.parse_map_to_graph()
 
 TEST_PATH_POSSIBLE_RESULT_1 = [
     TEST_INIT_POINT_ID,
@@ -28,7 +28,7 @@ def dijkstra_ways_init_simple_node():
 
 @pytest.fixture()
 def simplified_graph():
-    parser.parse_simplified_map_to_graph()
+    parser.parse_map_to_graph()
     return parser
 
 

@@ -5,10 +5,10 @@ from src.constants import PRIORITY_QUIETNESS
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 from test.test_constants import TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, TEST_END_POINT_LONG_ID, \
-    MOCK_GRAPH_FILE, MOCK_MAP_FILE
+    MOCK_GRAPH_FILE, MOCK_MAP_CONTENT
 
-test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_FILE, PRIORITY_QUIETNESS)
-test_weighed_graph = test_graph_parser.parse_simplified_map_to_graph()
+test_graph_parser = GraphParser(MOCK_GRAPH_FILE, MOCK_MAP_CONTENT, PRIORITY_QUIETNESS)
+test_weighed_graph = test_graph_parser.parse_map_to_graph()
 
 
 test_dijkstra = DijkstraSPF(test_weighed_graph, TEST_INIT_POINT_ID)

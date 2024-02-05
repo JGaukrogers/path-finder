@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from src.constants import MapPoint, EXTRACTED_GRAPH_FILENAME_TEMPLATE
-from src.map_downloader import DataDownloader
+from src.data_downloader import DataDownloader
 from src.route_api import get_area_boundaries
 from test.test_constants import TEST_END_POINT_LONG_LAT, TEST_END_POINT_LONG_LON, \
     TEST_INIT_POINT_LAT, TEST_INIT_POINT_LON, TEST_VILLAGE
