@@ -5,10 +5,9 @@ from itertools import pairwise
 from src.graph_parser import SEPARATOR
 
 
-def extract_and_write_to_file(in_data: json, out_file):
-    extracted_data = convert_json_to_graph(in_data)
-    with open(out_file, 'w') as f:
-        f.writelines(extracted_data)
+def extract_osm_to_graph(osm_data: json):
+    extracted_data = convert_json_to_graph(osm_data)
+    return ''.join(extracted_data)
 
 
 def convert_json_to_graph(downloaded_data: json) -> list[str]:

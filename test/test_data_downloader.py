@@ -28,6 +28,6 @@ def data_downloader(rm_graph_file):
 
 
 def test_data_download_good(data_downloader):
-    assert data_downloader.download_graph_and_extract()
+    assert data_downloader.download_data_and_extract()
     assert os.path.isfile(TEST_EXTRACTED_GRAPH)
     assert os.path.getsize(TEST_EXTRACTED_GRAPH) > 0

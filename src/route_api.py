@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 
 from src.constants import MapPoint, AreaBoundaries, \
     EXTRA_AREA_DISTANCE_IN_KM, RADIUS_EARTH, \
-    EXTRACTED_GRAPH_FILENAME_TEMPLATE, HTML_OUTPATH, HTML_OUTFILE
+    HTML_OUTPATH, HTML_OUTFILE
 from src.data_downloader import DataDownloader
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
@@ -25,10 +25,10 @@ def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path
     end_point = convert_lat_lon_to_mappoint(end_point_lat, end_point_lon)
     area_boundaries = get_area_boundaries(init_point, end_point)
 
-    data_downloader = DataDownloader(file_name, area_boundaries)
-    is_graph_downloaded = data_downloader.download_graph_and_extract()
+    data_downloader = DataDownloader(area_boundaries)
+    is_graph_downloaded = data_downloader.download_data_and_extract()
     if is_graph_downloaded:
-        parser = GraphParser(graph_file_path=EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
+        parser = GraphParser(map_graph=data_downloader.extracted_graph,
                              downloaded_map_info=data_downloader.osm_data,
                              path_way_priority=path_way_priority)
         graph = parser.parse_map_to_graph()

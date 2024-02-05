@@ -2,24 +2,23 @@ import json
 
 import requests
 
-from src.constants import EXTRACTED_GRAPH_FILENAME_TEMPLATE, \
-    OVERPASS_QUERY, OVERPASS_URL, \
+from src.constants import OVERPASS_QUERY, OVERPASS_URL, \
     AreaBoundaries
-from src.format import extract_and_write_to_file
+from src.format import extract_osm_to_graph
 
 
 class DataDownloader:
 
-    def __init__(self, file_name: str, area_boundaries: AreaBoundaries):
+    def __init__(self, area_boundaries: AreaBoundaries):
         self.area_boundaries = area_boundaries
         self.osm_data = None
-        self.extracted_graph = EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name)
+        self.extracted_graph = None
 
-    def download_graph_and_extract(self) -> bool:
+    def download_data_and_extract(self) -> bool:
         self.osm_data = self.download_map_data()
         self.osm_data = json.loads(self.osm_data)
         if self.osm_data:
-            extract_and_write_to_file(self.osm_data, self.extracted_graph)
+            self.extracted_graph = extract_osm_to_graph(self.osm_data)
             return True
         return False
 
