@@ -24,10 +24,10 @@ def rm_graph_file():
 def data_downloader(rm_graph_file):
     area_boundaries = get_area_boundaries(MapPoint(TEST_END_POINT_LONG_LAT, TEST_END_POINT_LONG_LON),
                                           MapPoint(TEST_INIT_POINT_LAT, TEST_INIT_POINT_LON))
-    return DataDownloader(TEST_VILLAGE, area_boundaries)
+    return DataDownloader(area_boundaries)
 
 
 def test_data_download_good(data_downloader):
     assert data_downloader.download_data_and_extract()
-    assert os.path.isfile(TEST_EXTRACTED_GRAPH)
-    assert os.path.getsize(TEST_EXTRACTED_GRAPH) > 0
+    assert data_downloader.osm_data
+    assert data_downloader.extracted_graph
