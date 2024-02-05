@@ -1,5 +1,5 @@
-import os
 import math
+import os
 import time
 
 from dijkstra import DijkstraSPF
@@ -7,12 +7,10 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 
 from src.constants import MapPoint, AreaBoundaries, \
     EXTRA_AREA_DISTANCE_IN_KM, RADIUS_EARTH, \
-    EXTRACTED_GRAPH_FILENAME_TEMPLATE, OSM_FILENAME_TEMPLATE, \
-    HTML_OUTPATH, HTML_OUTFILE
+    EXTRACTED_GRAPH_FILENAME_TEMPLATE, HTML_OUTPATH, HTML_OUTFILE
+from src.data_downloader import DataDownloader
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
-from src.data_downloader import DataDownloader
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
