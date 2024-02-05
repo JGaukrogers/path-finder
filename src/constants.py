@@ -1,4 +1,7 @@
+import os
 from collections import namedtuple
+from dotenv import load_dotenv
+from pathlib import Path
 
 DEFAULT_HTML_OUTFILE = 'index.html'
 ZOOM_START = 17
@@ -18,8 +21,13 @@ way({s},{w},{n},{e})[highway];
 out body;
 '''
 
+dotenv_path = Path('.env')
+load_dotenv(dotenv_path=dotenv_path)
+DOWNLOADS_HOME = Path(os.environ['PF_HOME']) / 'downloads/'
+TEMPLATES_HOME = Path(os.environ['PF_HOME']) / 'src/templates/'
+
 HTML_OUTFILE = '{file_name}.html'
-HTML_OUTPATH = 'src/templates/{file_name}.html'
+HTML_OUTPATH = str(TEMPLATES_HOME / '{file_name}.html')
 
 PRIORITY_QUIETNESS = 'quietness'
 PRIORITY_SHORT_DISTANCE = 'distance'

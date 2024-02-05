@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from src.constants import TEMPLATES_HOME
+
 resources_dir = Path(".") / 'resources'
 MOCK_GRAPH_FILE = str(resources_dir / 'extracted-graph.txt')
 MOCK_MAP_FILE = str(resources_dir / 'my_town.osm')
@@ -8,6 +10,10 @@ with open(MOCK_MAP_FILE) as fd:
     MOCK_MAP_CONTENT = json.load(fd)
 with open(MOCK_GRAPH_FILE) as fd:
     MOCK_GRAPH_CONTENT = fd.read()
+
+INDEX_LONG_HTML = str(TEMPLATES_HOME / 'index_long.html')
+INDEX_SHORT_HTML = str(TEMPLATES_HOME / 'index_short.html')
+
 
 TEST_INIT_POINT_ID = '6845757797'
 TEST_END_POINT_SHORT_ID = '6845757796'
