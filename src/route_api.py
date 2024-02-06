@@ -1,4 +1,3 @@
-import os
 import math
 import time
 
@@ -7,42 +6,38 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 
 from src.constants import MapPoint, AreaBoundaries, \
     EXTRA_AREA_DISTANCE_IN_KM, RADIUS_EARTH, \
-    EXTRACTED_GRAPH_FILENAME_TEMPLATE, OSM_FILENAME_TEMPLATE, \
     HTML_OUTPATH, HTML_OUTFILE
+from src.data_downloader import DataDownloader
 from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
-from src.map_downloader import DataDownloader
-
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
 
 
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
 def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
-    file_name = str(time.time_ns())
-
     init_point = convert_lat_lon_to_mappoint(init_point_lat, init_point_lon)
     end_point = convert_lat_lon_to_mappoint(end_point_lat, end_point_lon)
     area_boundaries = get_area_boundaries(init_point, end_point)
 
-    data_downloader = DataDownloader(file_name, area_boundaries)
-    is_graph_downloaded = data_downloader.download_graph_and_extract()
+    data_downloader = DataDownloader(area_boundaries)
+    is_graph_downloaded = data_downloader.download_data_and_extract()
     if is_graph_downloaded:
-        parser = GraphParser(graph_file_path=EXTRACTED_GRAPH_FILENAME_TEMPLATE.format(file_name=file_name),
-                             map_file_path=OSM_FILENAME_TEMPLATE.format(file_name=file_name),
+        parser = GraphParser(map_graph=data_downloader.extracted_graph,
+                             downloaded_map_info=data_downloader.osm_data,
                              path_way_priority=path_way_priority)
-        graph = parser.parse_simplified_map_to_graph()
+        graph = parser.parse_map_to_graph()
 
         init_point = parser.get_closest_node_id(init_point)
         end_point = parser.get_closest_node_id(end_point)
 
-        dijkstra = DijkstraSPF(graph, parser.nodeId_to_nodes_dict[init_point])
+        dijkstra = DijkstraSPF(graph, init_point)
         displayer = MapDisplayer(graph_parser=parser, dijkstra=dijkstra)
-        displayer.get_quietest_way(init_point, end_point, outfile_path=HTML_OUTPATH.format(file_name=file_name))
-        return render_template(HTML_OUTFILE.format(file_name=file_name))
 
+        file_name = str(time.time_ns())
+        displayer.generate_map(init_point, end_point, outfile_path=HTML_OUTPATH.format(file_name=file_name))
+        return render_template(HTML_OUTFILE.format(file_name=file_name))
     else:
         return '<p>An error occurred</p>'
 
