@@ -30,5 +30,5 @@ testdata = [
 @pytest.mark.parametrize('html_filename', testdata)
 def test_create_graph_one_edge(map_displayer, html_filename):
     map_displayer.generate_map(TEST_INIT_POINT_ID, TEST_END_POINT_SHORT_ID, html_filename)
-    assert os.path.isfile(INDEX_SHORT_HTML)
-    assert os.path.getsize(INDEX_SHORT_HTML) > 0
+    assert os.path.isfile(html_filename)
+    assert os.path.getsize(html_filename) > 0
