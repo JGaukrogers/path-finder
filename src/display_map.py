@@ -33,11 +33,10 @@ class MapDisplayer:
         start_node_coords = [lat, lon]
         return start_node_coords
 
-    def get_trail_coordinates(self, node_list):
+    def get_trail_coordinates(self, node_list) -> list:
         trail_coordinates = []
         for path_points in node_list:
             lat = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lat
             lon = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lon
-            # TODO: make namedtuple
             trail_coordinates.append((lat, lon))
         return trail_coordinates

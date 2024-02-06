@@ -3,7 +3,6 @@ from collections import namedtuple
 from dotenv import load_dotenv
 from pathlib import Path
 
-DEFAULT_HTML_OUTFILE = 'index.html'
 ZOOM_START = 17
 
 SEPARATOR = '␟'
@@ -27,6 +26,7 @@ TEMPLATES_HOME = Path(os.environ['PF_HOME']) / 'src/templates/'
 
 HTML_OUTFILE = '{file_name}.html'
 HTML_OUTPATH = str(TEMPLATES_HOME / '{file_name}.html')
+DEFAULT_HTML_OUTFILE = 'index.html'
 
 PRIORITY_QUIETNESS = 'quietness'
 PRIORITY_SHORT_DISTANCE = 'distance'

@@ -2,8 +2,7 @@ import json
 
 import requests
 
-from src.constants import OVERPASS_QUERY, OVERPASS_URL, \
-    AreaBoundaries
+from src.constants import OVERPASS_QUERY, OVERPASS_URL, AreaBoundaries
 from src.osm_to_graph_converter import extract_osm_to_graph
 
 
@@ -15,14 +14,13 @@ class DataDownloader:
         self.extracted_graph = None
 
     def download_data_and_extract(self) -> bool:
-        self.osm_data = self.download_map_data()
-        self.osm_data = json.loads(self.osm_data)
+        self.osm_data = self.download_osm_map_data()
         if self.osm_data:
             self.extracted_graph = extract_osm_to_graph(self.osm_data)
             return True
         return False
 
-    def download_map_data(self) -> str | bool:
+    def download_osm_map_data(self) -> str | bool:
         overpass_query = OVERPASS_QUERY.format(n=self.area_boundaries.north,
                                                s=self.area_boundaries.south,
                                                e=self.area_boundaries.east,
@@ -32,4 +30,4 @@ class DataDownloader:
         except requests.RequestException | requests.ConnectionError | requests.HTTPError | requests.Timeout:
             return False
         osm_map_data = response.text
-        return osm_map_data
+        return json.loads(osm_map_data)

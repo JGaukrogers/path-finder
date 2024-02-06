@@ -5,7 +5,7 @@ from src.constants import PRIORITY_QUIETNESS, PRIORITY_SHORT_DISTANCE
 
 class WeightCalculator:
 
-    def __init__(self, path_way_priority, nodeId_to_nodeInfo_dict):
+    def __init__(self, path_way_priority: str, nodeId_to_nodeInfo_dict: dict):
         self.path_way_priority = path_way_priority
         self.nodeId_to_nodeInfo_dict = nodeId_to_nodeInfo_dict
 
@@ -17,7 +17,6 @@ class WeightCalculator:
         common_ways = ways_n0 & ways_n1
         weight = 1
         if self.path_way_priority == PRIORITY_QUIETNESS:
-            # Is sum a good idea? Better min?
             weight = sum(way.get_quietness_value() for way in common_ways)
         elif self.path_way_priority == PRIORITY_SHORT_DISTANCE:
             weight = self.get_distance_for_nodes(node_id_0, node_id_1)

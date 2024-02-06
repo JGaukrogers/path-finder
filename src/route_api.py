@@ -1,5 +1,4 @@
 import math
-import os
 import time
 
 from dijkstra import DijkstraSPF
@@ -13,7 +12,6 @@ from src.display_map import MapDisplayer
 from src.graph_parser import GraphParser
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 messages = []
 
 

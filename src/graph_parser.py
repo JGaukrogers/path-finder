@@ -67,5 +67,4 @@ class GraphParser:
             if distance < closest_distance:
                 closest_distance = distance
                 closest_node = node_id
-
         return closest_node
