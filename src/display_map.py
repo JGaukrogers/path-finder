@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import folium
 from dijkstra import DijkstraSPF
 
@@ -25,8 +23,6 @@ class MapDisplayer:
         trail_coordinates = self.get_trail_coordinates(self.dijkstra.get_path(end_node_id))
 
         folium.PolyLine(trail_coordinates).add_to(map)
-        for coordinate in trail_coordinates:
-            folium.vector_layers.Circle(coordinate, radius=1, color='#0000ff').add_to(map)
 
         map.save(outfile_path)
 
@@ -55,11 +51,8 @@ class MapDisplayer:
         aux = []
         for node_id in self.graph_parser.nodeId_to_nodeInfo_dict:
             aux.append((node_id, self.graph_parser.nodeId_to_nodeInfo_dict[node_id].lat, self.graph_parser.nodeId_to_nodeInfo_dict[node_id].lon))
-            # print(f'{node_id}: {self.graph_parser.nodeId_to_nodeInfo_dict[node_id].lat}, {self.graph_parser.nodeId_to_nodeInfo_dict[node_id].lon}')
         aux.sort(key=lambda coord: coord[1])
-        # pprint(aux)
 
-        # folium.PolyLine(trail_coordinates).add_to(map)
         for node_id, coordinate in trail_coordinates:
             folium.vector_layers.Circle(coordinate, radius=1, color='#ff0000', fill=True, popup=f'{node_id}: {coordinate[0]}, {coordinate[1]}').add_to(map)
 
