@@ -28,16 +28,13 @@ class WeightCalculator:
             weight = self.get_distance_for_nodes(node_id_0, node_id_1)
         return weight
 
-    def get_ways_for_nodes(self, node_ids: set[str] | str) -> set:
+    def get_ways_for_nodes(self, node_ids: set[str]) -> set:
         ways = set()
-        if isinstance(node_ids, set):
-            for node_id in node_ids:
-                ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
-        else:
-            ways.update(self.nodeId_to_nodeInfo_dict[node_ids].ways)
+        for node_id in node_ids:
+            ways.update(self.nodeId_to_nodeInfo_dict[node_id].ways)
         return ways
 
-    def get_distance_for_nodes(self, node_id_0, node_id_1) -> float:
+    def get_distance_for_nodes(self, node_id_0: str, node_id_1: str) -> float:
         node_0 = self.nodeId_to_nodeInfo_dict[node_id_0]
         node_1 = self.nodeId_to_nodeInfo_dict[node_id_1]
 
@@ -48,14 +45,14 @@ class WeightCalculator:
 
     def get_nearby_nodes(self, node_id: str) -> set[str]:
         neighbours = set()
-        index = 0
         lat_reference = self.nodeId_to_nodeInfo_dict[node_id].lat
         lon_reference = self.nodeId_to_nodeInfo_dict[node_id].lon
-        while index < len(self.nodes_ordered_by_lat) \
-                and self.nodes_ordered_by_lat[index][1] <= lat_reference + RADIUS_LAT:
+
+        for index in range(len(self.nodes_ordered_by_lat)):
+            if self.nodes_ordered_by_lat[index][1] > lat_reference + RADIUS_LAT:
+                break
             if self.nodes_ordered_by_lat[index][1] >= lat_reference - RADIUS_LAT \
                     and lon_reference - RADIUS_LON <= self.nodes_ordered_by_lat[index][2] <= lon_reference + RADIUS_LON:
                 neighbours.add(self.nodes_ordered_by_lat[index][0])
-            index += 1
 
         return neighbours
