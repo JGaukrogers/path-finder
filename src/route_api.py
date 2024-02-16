@@ -15,6 +15,28 @@ app = Flask(__name__)
 messages = []
 
 
+@app.route('/display_downloaded_data/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>')
+def display_downloaded_data(init_point_lat, init_point_lon, end_point_lat, end_point_lon):
+    init_point = convert_lat_lon_to_mappoint(init_point_lat, init_point_lon)
+    end_point = convert_lat_lon_to_mappoint(end_point_lat, end_point_lon)
+    area_boundaries = get_area_boundaries(init_point, end_point)
+
+    data_downloader = DataDownloader(area_boundaries)
+    is_graph_downloaded = data_downloader.download_data_and_extract()
+    if is_graph_downloaded:
+        parser = GraphParser(map_graph=data_downloader.extracted_graph,
+                             downloaded_map_info=data_downloader.osm_data,
+                             path_way_priority='')
+        parser.parse_map_to_graph()
+
+        displayer = MapDisplayer(graph_parser=parser, dijkstra=None)
+        file_name = str(time.time_ns())
+        displayer.display_downloaded_data([init_point_lat, init_point_lon],
+                                          out_file=HTML_OUTPATH.format(file_name=file_name))
+
+        return render_template(HTML_OUTFILE.format(file_name=file_name))
+
+
 @app.route('/get_route/<init_point_lat>/<init_point_lon>/<end_point_lat>/<end_point_lon>/<path_way_priority>')
 def get_route(init_point_lat, init_point_lon, end_point_lat, end_point_lon, path_way_priority):
     init_point = convert_lat_lon_to_mappoint(init_point_lat, init_point_lon)

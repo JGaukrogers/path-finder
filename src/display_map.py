@@ -33,10 +33,25 @@ class MapDisplayer:
         start_node_coords = [lat, lon]
         return start_node_coords
 
-    def get_trail_coordinates(self, node_list) -> list:
+    def get_trail_coordinates(self, node_list) -> list[tuple[float, float]]:
         trail_coordinates = []
         for path_points in node_list:
             lat = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lat
             lon = self.graph_parser.nodeId_to_nodeInfo_dict[path_points].lon
             trail_coordinates.append((lat, lon))
         return trail_coordinates
+
+    def display_downloaded_data(self, start_node_coords, out_file: str):
+        map = folium.Map(location=start_node_coords, zoom_start=ZOOM_START)
+
+        trail_coordinates = [(node_id,
+                              (self.graph_parser.nodeId_to_nodeInfo_dict[node_id].lat,
+                              self.graph_parser.nodeId_to_nodeInfo_dict[node_id].lon,))
+                             for node_id in self.graph_parser.nodeId_to_nodeInfo_dict]
+
+        for node_id, coordinate in trail_coordinates:
+            folium.vector_layers.Circle(coordinate, radius=1, color='#ff0000', fill=True,
+                                        popup=f'{node_id}: {coordinate[0]}, {coordinate[1]}')\
+                .add_to(map)
+
+        map.save(out_file)
