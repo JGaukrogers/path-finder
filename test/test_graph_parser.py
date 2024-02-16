@@ -1,5 +1,6 @@
 import pytest
 from dijkstra import DijkstraSPF
+from haversine import haversine, Unit
 
 from src.constants import PRIORITY_QUIETNESS
 from src.graph_elements import highway_types
@@ -33,7 +34,7 @@ def simplified_graph():
 
 
 def test_shortest_distance_is_correct(dijkstra_ways_init_simple_node):
-    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_LONG_ID) == 21
+    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_LONG_ID) == 68.21850243944048
 
 
 def test_get_right_path(dijkstra_ways_init_simple_node):
@@ -41,7 +42,12 @@ def test_get_right_path(dijkstra_ways_init_simple_node):
 
 
 def test_get_right_weight(dijkstra_ways_init_simple_node):
-    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_SHORT_ID) == highway_types['residential']
+    init_node_info = parser.nodeId_to_nodeInfo_dict[TEST_INIT_POINT_ID]
+    end_node_info = parser.nodeId_to_nodeInfo_dict[TEST_END_POINT_SHORT_ID]
+    coordinates_0 = (float(init_node_info.lat), float(init_node_info.lon))
+    coordinates_1 = (float(end_node_info.lat), float(end_node_info.lon))
+    distance_ratio = 0.1 * haversine(coordinates_0, coordinates_1, unit=Unit.METERS)
+    assert dijkstra_ways_init_simple_node.get_distance(TEST_END_POINT_SHORT_ID) == highway_types['residential'] + distance_ratio
 
 
 def test_populate_note_to_info_dict(simplified_graph):
